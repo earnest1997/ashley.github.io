@@ -24,15 +24,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/');
 
-  precacheUrls.push('/2019/10/11/sass中的map/');
+  precacheUrls.push('/2019/12/10/2019年度总结/');
 
   precacheUrls.push('/2019/10/17/css中宽高的新值复习/');
 
-  precacheUrls.push('/2019/12/10/2019年度总结/');
-
-  precacheUrls.push('/2019/10/11/ts小知识点/');
+  precacheUrls.push('/2019/10/11/sass中的map/');
 
   precacheUrls.push('/2019/12/08/webpack常用配置速查/');
+
+  precacheUrls.push('/2019/11/07/前端性能优化/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};

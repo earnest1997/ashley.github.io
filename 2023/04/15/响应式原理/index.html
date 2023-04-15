@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+<head><link rel=manifest href=/ashley271017.github.io/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/ashley271017.github.io/manifest.json">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>vue3响应式原理 | Ashley&#39;s blog</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="manifest" href="/manifest.json">
+  
+    <link rel="stylesheet" href="/ashley271017.github.io/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Ashley's blog</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/"
+            
+            
+            id="ashley271017.github.io">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/collect/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.iocollect">
+            <i class='fas fa-link fa-fw'></i>&nbsp;收藏
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/about/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.ioabout">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/ashley271017.github.io/' >
+        
+          Ashley's blog
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/"
+                  
+                  
+                  id="ashley271017.github.io">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;示例
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/category/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogcategory">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogtags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/"
+                
+                
+                id="ashley271017.github.io">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="ashley271017.github.iofriends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/ashley271017.github.io/2023/04/15/响应式原理/">
+        vue3响应式原理
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://ashleyblog.xyz" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Ashley</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2023-04-15</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>Vue3 的响应式原理依赖了 Proxy 这个核心 API，通过 Proxy 可以劫持对象的某些操作。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="keyword">get</span>(target, property, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"get"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, property, receiver);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>(target, property, value, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"set"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, property, receiver);</span><br><span class="line">  &#125;,</span><br><span class="line">  has(target, prop) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"has"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.has(target, prop);</span><br><span class="line">  &#125;,</span><br><span class="line">  deleteProperty(target, prop) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"deleteProperty"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.deleteProperty(target, prop);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p.a; <span class="comment">// 输出 --&gt; get</span></span><br><span class="line">p.a = <span class="number">2</span>; <span class="comment">// 输出 --&gt; set</span></span><br><span class="line"><span class="string">"a"</span> <span class="keyword">in</span> p; <span class="comment">// 输出 --&gt; has</span></span><br><span class="line"><span class="keyword">delete</span> p.a; <span class="comment">// 输出 --&gt; deleteProperty</span></span><br></pre></td></tr></table></figure>
+
+<p>如上例子，我们用 Proxy 代理了 Obj 对象的属性访问、属性赋值、in 操作符、delete 的操作，并进行 console.log 输出。</p>
+<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><p>Reflect 是与 Proxy 搭配使用的一个 API，当我们劫持了某些操作时，如果需要再把这些操作反射回去，那么就需要 Reflect 这个 API。</p>
+<p>由于我们拦截了对象的操作，所以这些操作该有的功能都丧失了，例如，访问属性 p.a 应该得到 a 属性的值，但此时却不会有任何结果，如果我们还想拥有拦截之前的功能，那我们就需要用 Reflect 反射回去。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">  <span class="keyword">get</span>(target, property, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"get"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, property, receiver);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>(target, property, value, receiver) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"set"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, property, receiver);</span><br><span class="line">  &#125;,</span><br><span class="line">  has(target, prop) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"has"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.has(target, prop);</span><br><span class="line">  &#125;,</span><br><span class="line">  deleteProperty(target, prop) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"deleteProperty"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Reflect</span>.deleteProperty(target, prop);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h3><p>以下全文我们都会通过这个例子来讲述 Vue3 响应式的原理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"app"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 创建一个响应式对象</span></span><br><span class="line">  <span class="keyword">const</span> state = reactive(&#123; <span class="attr">counter</span>: <span class="number">1</span> &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 立即运行一个函数，当响应式对象的属性发生改变时重新执行。</span></span><br><span class="line">  effect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"#app"</span>).innerHTML = state.counter;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2s 后视图更新</span></span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    state.counter += <span class="number">1</span>;</span><br><span class="line">  &#125;, <span class="number">2000</span>);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们用 reactive 创建了一个响应式对象 state，并调用了 effect 方法，该方法接受一个副作用函数，effect 的执行会立即调用副作用函数，并将 state.counter 赋值给 #app.innerHTML；两秒后，state.counter += 1，此时，effect 的副作用函数会重新执行，页面也会变成 2.</p>
+<p>内部的执行过程大概如下图所示：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/cAd6ObKOzECkt2Vn6f73fJUHbKh9pqkwduhZyibx3XxmlJzcBbeEJDBRdT33lpXqlChXXia0DWSSMenx17VzYIvg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<ul>
+<li>调用 reactive() 返回一个 Proxy 代理对象，并劫持对象的 get 与 set 操作</li>
+<li>调用 effect() 方法时，会访问属性 state.counter，此时会触发 proxy 的 get 操作。</li>
+<li><strong>get 方法会调用 track() 进行依赖收集</strong>；建立一个对象（state）、属性（counter）、effect 副作用函数的依赖关系；</li>
+<li><strong>set 方法会调用 trigger() 进行依赖更新</strong>；通过对象（state）与属性（coutner）找到对应的 effect 副作用函数，然后重新执行。<br>reactive</li>
+</ul>
+<h3 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h3><p>reactive 会返回如下一个 Proxy 对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reactive = <span class="function">(<span class="params">target</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="keyword">get</span>(target, key, receiver) &#123;</span><br><span class="line">      <span class="keyword">const</span> res = <span class="built_in">Reflect</span>.get(target, key, receiver);</span><br><span class="line"></span><br><span class="line">      track(target, key); <span class="comment">// 收集依赖</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isObject(res)) &#123;</span><br><span class="line">        <span class="comment">// 如果当前获取的属性值是一个对象，则继续将为此对象创建 Proxy 代理</span></span><br><span class="line">        <span class="keyword">return</span> reactive(res);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> res;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span>(target, key, value, receiver) &#123;</span><br><span class="line">      <span class="built_in">Reflect</span>.set(target, key, value, receiver);</span><br><span class="line">      trigger(target, key); <span class="comment">// 依赖更新</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="effect"><a href="#effect" class="headerlink" title="effect"></a>effect</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> activeEffect;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">effect</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _effect = <span class="function"><span class="keyword">function</span> <span class="title">reactiveEffect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    activeEffect = _effect;</span><br><span class="line">    fn();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  _effect();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先定义全局的 activeEffect，它永远指向当前正在执行的 effect 副作用函数。effect 为 fn 创建一个内部的副作用函数，然后立即执行，此时会触发对象的 get 操作，调用 track() 方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">effect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// effect 的立即执行会访问 state.counter，触发了对象的 get 操作。</span></span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">"#app"</span>).innerHTML = state.counter;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="track"><a href="#track" class="headerlink" title="track"></a>track</h3><p>track 会建立一个 对象（state） =&gt; 属性（counter） =&gt; effect 的一个依赖关系</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> targetMap = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!activeEffect) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> depsMap = targetMap.get(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) &#123;</span><br><span class="line">    targetMap.set(target, (depsMap = <span class="keyword">new</span> <span class="built_in">Map</span>()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> dep = depsMap.get(key);</span><br><span class="line">  <span class="keyword">if</span> (!dep) &#123;</span><br><span class="line">    depsMap.set(key, (dep = <span class="keyword">new</span> <span class="built_in">Set</span>()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!dep.has(activeEffect)) &#123;</span><br><span class="line">    dep.add(activeEffect);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行完成成后我们得到一个如下的数据结构：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="comment">// map 集合</span></span><br><span class="line">  &#123;</span><br><span class="line">    key: &#123;<span class="attr">counter</span>: <span class="number">1</span>&#125; <span class="comment">// state 对象,</span></span><br><span class="line">    value: [ <span class="comment">// map 集合</span></span><br><span class="line">      &#123;</span><br><span class="line">        key: <span class="string">"counter"</span>,</span><br><span class="line">        value: [ <span class="comment">// set</span></span><br><span class="line">          <span class="function"><span class="keyword">function</span> <span class="title">reactiveEffect</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// effect 副作用函数</span></span><br><span class="line">        ],</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h3 id="trigger"><a href="#trigger" class="headerlink" title="trigger"></a>trigger</h3><p>当我们给 state.counter 赋值的时候就会触发代理对象的 set 操作，从而调用 trigger 方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 给 counter 属性赋值会触发 set 操作</span></span><br><span class="line">  state.counter += <span class="number">1</span>;</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trigger</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> depsMap = targetMap.get(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> effects = depsMap.get(key);</span><br><span class="line">  effects &amp;&amp; effects.forEach(<span class="function">(<span class="params">effect</span>) =&gt;</span> effect());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="vue3为什么要用proxy取代defineProperty"><a href="#vue3为什么要用proxy取代defineProperty" class="headerlink" title="vue3为什么要用proxy取代defineProperty"></a>vue3为什么要用proxy取代defineProperty</h3><p>Vue3使用Proxy取代<code>defineProperty</code>的原因是，Proxy可以直接代理对象，而<code>defineProperty</code>只能劫持对象的属性。由于<code>Object.defineProperty</code>只能对属性进行劫持，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历。这样的效率比较低，而且代码量也比较大。而Proxy可以直接劫持数组、对象的改变，可以直接添加对象属性，兼容性也比较好。<br>比如：<br>下面的例子使用get拦截，实现数组读取负数的索引。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArray</span>(<span class="params">...elements</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> handler = &#123;</span><br><span class="line">    <span class="keyword">get</span>(target, propKey, receiver) &#123;</span><br><span class="line">      <span class="keyword">let</span> index = <span class="built_in">Number</span>(propKey);</span><br><span class="line">      <span class="keyword">if</span> (index &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        propKey = <span class="built_in">String</span>(target.length + index);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, propKey, receiver);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> target = [];</span><br><span class="line">  target.push(...elements);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = createArray(<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>);</span><br><span class="line">arr[<span class="number">-1</span>] <span class="comment">// c</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，数组的位置参数是-1，就会输出数组的倒数第一个成员。</p>
+<p>因为直接对对象做的代理所以还能实现链式操作</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pipe = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> funcStack = [];</span><br><span class="line">  <span class="keyword">var</span> oproxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(&#123;&#125; , &#123;</span><br><span class="line">    <span class="keyword">get</span> : function (pipeObject, fnName) &#123;</span><br><span class="line">      <span class="keyword">if</span> (fnName === <span class="string">'get'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> funcStack.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">val, fn</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">return</span> fn(val);</span><br><span class="line">        &#125;,value);</span><br><span class="line">      &#125;</span><br><span class="line">      funcStack.push(<span class="built_in">window</span>[fnName]);</span><br><span class="line">      <span class="keyword">return</span> oproxy;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> oproxy;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> double = <span class="function"><span class="params">n</span> =&gt;</span> n * <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> pow    = <span class="function"><span class="params">n</span> =&gt;</span> n * n;</span><br><span class="line"><span class="keyword">var</span> reverseInt = <span class="function"><span class="params">n</span> =&gt;</span> n.toString().split(<span class="string">""</span>).reverse().join(<span class="string">""</span>) | <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">pipe(<span class="number">3</span>).double.pow.reverseInt.get; <span class="comment">// 63</span></span><br></pre></td></tr></table></figure>
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-15T21:12:16+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>updated at Apr 15, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/ashley271017.github.io/tags/vue3/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>vue3</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://ashleyblog.xyz/2023/04/15/响应式原理/&title=vue3响应式原理 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ashleyblog.xyz/2023/04/15/响应式原理/&title=vue3响应式原理 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://ashleyblog.xyz/2023/04/15/响应式原理/&title=vue3响应式原理 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/04/15/合成事件/" rel="prev" title="合成事件">
+                                  
+                                      合成事件
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/react/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>react</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/04/15/vue响应式原理/" rel="prev" title="vue响应式原理">
+                                    
+                                        vue响应式原理
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/vue/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>vue</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'vue3响应式原理',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/ashley271017.github.io/images/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        <!-- 
+          
+            <a href="https://github.com/earnest1997"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+         -->
+        失落，是因为你总在跟别人比较
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy"><span class="toc-text">Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reflect"><span class="toc-text">Reflect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举个例子"><span class="toc-text">举个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reactive"><span class="toc-text">reactive</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#effect"><span class="toc-text">effect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#track"><span class="toc-text">track</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trigger"><span class="toc-text">trigger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vue3为什么要用proxy取代defineProperty"><span class="toc-text">vue3为什么要用proxy取代defineProperty</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/" href="/ashley271017.github.io/"
+          
+          
+          id="ashley271017.github.io">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/friends/" href="/ashley271017.github.io/friends/"
+          
+            rel="nofollow"
+          
+          
+          id="ashley271017.github.iofriends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/category/"
+    title="blog/category/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/sass/" href="/ashley271017.github.io/categories/sass/"><div class='name'>sass</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/ts/" href="/ashley271017.github.io/categories/ts/"><div class='name'>ts</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/性能优化/" href="/ashley271017.github.io/categories/性能优化/"><div class='name'>性能优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/成长/" href="/ashley271017.github.io/categories/成长/"><div class='name'>成长</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/配置/" href="/ashley271017.github.io/categories/配置/"><div class='name'>配置</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面经/" href="/ashley271017.github.io/categories/面经/"><div class='name'>面经</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/css/" href="/ashley271017.github.io/categories/面经/css/"><div class='name'>css</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/js/" href="/ashley271017.github.io/categories/面经/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/浏览器/" href="/ashley271017.github.io/categories/面经/浏览器/"><div class='name'>浏览器</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面试/" href="/ashley271017.github.io/categories/面试/"><div class='name'>面试</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面试/js/" href="/ashley271017.github.io/categories/面试/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/tags/"
+    title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="https://github.com/earnest1997"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+</div>
+  <div>
+    联系方式：ashley19971212@gmail.com
+    
+      , 
+      总浏览量
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/ashley271017.github.io/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["/ashley271017.github.io/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/ashley271017.github.io/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0.5/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "vu5VJ9hGtTUPkCsBP1ItVzg9-gzGzoHsz",
+    appKey: "HfSu2jw0KjCyYYMydHTCArO2",
+    placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1681567989234')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

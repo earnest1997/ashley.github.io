@@ -320,7 +320,7 @@
 <li>按照变更的频率拆分<br>我们的项目不存在权限限制以及技术栈不统一的问题,显然这两种拆分方式都不合适，在我们的业务场景中，一个项目是由多个页面组成的，每个页面之前的状态相互独立，显而易见的直接按照业务拆分即可，这里推荐<a href="https://www.npmjs.com/package/madge" target="_blank" rel="noopener">madge</a>工具，它可根据你指定的入口自动为你找到入口的依赖，并将其从主项目中剥离出来，拆分完成之后，又该采用哪种架构方式呢？</li>
 </ul>
 <h2 id="传统解决方案"><a href="#传统解决方案" class="headerlink" title="传统解决方案"></a>传统解决方案</h2><h3 id="muti-repo"><a href="#muti-repo" class="headerlink" title="muti repo"></a>muti repo</h3><p>也就是直接将其拆分成多个仓库，简单粗暴但存在不少问题：</p>
-<h4 id="管理、调试困难"><a href="#管理、调试困难" class="headerlink" title="管理、调试困难"></a>管理、调试困难</h4><p>多个 git 仓库管理起来天然是麻烦的。对于功能类似的模块，如果拆成了多个仓库，无论对于多人协作还是独立开发，都需要打开多个仓库。<br>虽然 vscode 通过 Workspaces 解决多仓库管理的问题，但在多人协作的场景下，无法保证每个人的环境配置一致。<br>对于共用的包通过 Npm 安装，如果不能接受调试编译后的代码，或每次 npm link 一下，就没有办法调试依赖的子包。</p>
+<h4 id="管理、调试困难"><a href="#管理、调试困难" class="headerlink" title="管理、调试困难"></a>管理、调试困难</h4><p>多个 git 仓库管理起来天然是麻烦的。对于功能类似的模块，如果拆成了多个仓库，无论对于多人协作还是独立开发，都需要打开多个仓库。<br>虽然 vscode 通过 Workspaces 解决多仓库管理的问题，但在多人协作的场景下，无法保证每个人的环境配置一致。  </p>
 <h4 id="分支管理混乱"><a href="#分支管理混乱" class="headerlink" title="分支管理混乱"></a>分支管理混乱</h4><p>假如一个仓库提供给 A、B 两个项目用，而 B 项目优先开发了功能 b，无法与 A 项目兼容，此时就要在这个仓库开一个 feature/b 的分支支持这个功能，并且在未来合并到主干同步到项目 A。<br>一旦需要开分支的组件变多了，且之间出来依赖关联，分支管理复杂度就会呈指数上升。</p>
 <h4 id="依赖关系复杂"><a href="#依赖关系复杂" class="headerlink" title="依赖关系复杂"></a>依赖关系复杂</h4><p>独立仓库间组件版本号的维护需要手动操作，因为源代码不在一起，所以没有办法整体分析依赖，自动化管理版本号的依赖。三方依赖版本可能不一致:一个独立的包拥有一套独立的开发环境，难以保证子模块的版本和主项目完全一直，就存在运行结果不一致的风险。</p>
 <h4 id="占用总空间大"><a href="#占用总空间大" class="headerlink" title="占用总空间大"></a>占用总空间大</h4><p>正常情况下，一个公司的业务项目只有一个主干，多 git repo 的方式浪费了大量存储空间重复安装比如 React 等大型模块，时间久了可能会占用几十 GB 的额外空间，对于没有外接硬盘的同学来说，定期清理不用的项目下 node_modules 也是一件麻烦事。</p>
@@ -386,7 +386,7 @@
 <li>没有样式隔离机制，容易造成主子应用样式污染</li>
 <li>本地开发需要开启多个端口的服务，比较麻烦</li>
 <li>共享包的维护成本高：需要将组件共享的包都找出来，共享有时是强制的，如果漏了某些包，可能会导致页面报错或崩溃，同一个库，有时需要维护在约定的版本范围内，有时一个包太老或太新也会在加载时报错（不过是否需要共享可供用户选择）</li>
-<li>需要合理规划chunk拆分，如果拆分chunk过多会导致请求Chunk数量过多，并发量过大，如果多个模块共用一个<code>remoteEntry</code>又无法对其中包含的模块的版本做单独管理</li>
+<li><del>需要合理规划chunk拆分，如果拆分chunk过多会导致请求Chunk数量过多，并发量过大，如果多个模块共用一个<code>remoteEntry</code>又无法对其中包含的模块的版本做单独管理</del>（改动频繁的划分到一起，如何像npm包一样做版本管理？external-remote-plugin 可以让版本号由JS动态注入，这里可以结合云控配置）</li>
 </ul>
 <p>回到我们的业务场景，由于模块联邦只能复用JS chunk，对于我们依赖的后端服务无法复用，因此无法作为基层解决方案，但是他能解决目前代码复用方式存在的问题：由于我们的各个子项目都依赖了<code>submodule</code>中的公共组件、公共方法，每当修改一次这些公共组件、方法的时候，无论子应用需不需要修改调用方式，都需要在每个应用到这些公共组件、方法 的应用重新编译打包，显然影响到了效率，利用模块联邦的特性，我们可以在保证修改无副作用的前提下，直接上线<code>submodule</code>的内容，对于子应用是无感知的，只是cdn链接指向的<code>Js chunk</code>的内容变了而已</p>
 <h3 id="微前端"><a href="#微前端" class="headerlink" title="微前端"></a>微前端</h3><p>微前端是一种类似于微服务的架构，它将微服务的理念应用于浏览器端，即将 Web 应用由单一的单体应用转变为多个小型前端应用聚合为一的应用。微前端架构与框架无关，每个微应用都可以独立开发、独立运行、独立部署。</p>
@@ -426,10 +426,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-07T11:28:31+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-23T22:44:42+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 7, 2023</p>
+    <p>updated at Apr 23, 2023</p>
   </a>
 </div>
 
@@ -437,6 +437,9 @@
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/ashley271017.github.io/tags/架构/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>架构</p></a></div>
+
 
         
       
@@ -496,21 +499,40 @@
         
             <div class="prev-next">
                 
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/04/15/从入门到实践/" rel="prev" title="gitlab ci  从入门到实践">
+                                  
+                                      gitlab ci  从入门到实践
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/cicd/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>cicd</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
                 
                     <section class="next">
                         <span class="art-item-right" aria-hidden="true">
                             <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/ashley271017.github.io/2020/01/06/算法填坑/" rel="prev" title="算法填坑">
+                                <a href="/ashley271017.github.io/2021/04/10/常见登录方案/" rel="prev" title="常见登录方案">
                                     
-                                        算法填坑
+                                        常见登录方案
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/ashley271017.github.io/tags/算法/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>算法</a>
+                                    <a class="tag" href="/ashley271017.github.io/tags/网络/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>网络</a>
                                 </h6>
                             
                         </span>
@@ -580,7 +602,7 @@
     
     
       <div class="social-wrapper">
-        
+        <!-- 
           
             <a href="https://github.com/earnest1997"
               class="social fab fa-github flat-btn"
@@ -588,7 +610,8 @@
               rel="external nofollow noopener noreferrer">
             </a>
           
-        
+         -->
+        失落，是因为你总在跟别人比较
       </div>
     
   </div>
@@ -735,7 +758,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/css/" style="font-size: 24px; color: #555">css</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 24px; color: #555">js</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 14px; color: #999">webpack</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -777,14 +800,12 @@
   <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
 </div>
   <div>
-    footer.use
-    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
-    footer.theme
+    联系方式：ashley19971212@gmail.com
     
       , 
-      footer.total_views
+      总浏览量
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
-      footer.times
+      次
     
     . 
   </div>
@@ -1030,7 +1051,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1680838628474')
+  navigator.serviceWorker.register('/sw.js?t=1681567989234')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html>
+<head><link rel=manifest href=/ashley271017.github.io/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/ashley271017.github.io/manifest.json">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>webpack构建速度优化 | Ashley&#39;s blog</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="manifest" href="/manifest.json">
+  
+    <link rel="stylesheet" href="/ashley271017.github.io/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Ashley's blog</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/"
+            
+            
+            id="ashley271017.github.io">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/collect/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.iocollect">
+            <i class='fas fa-link fa-fw'></i>&nbsp;收藏
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/about/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.ioabout">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/ashley271017.github.io/' >
+        
+          Ashley's blog
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/"
+                  
+                  
+                  id="ashley271017.github.io">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;示例
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/category/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogcategory">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogtags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/"
+                
+                
+                id="ashley271017.github.io">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="ashley271017.github.iofriends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/ashley271017.github.io/2020/02/13/webpack构建速度优化/">
+        webpack构建速度优化
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://ashleyblog.xyz" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Ashley</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-02-13</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h3 id="webpack打包原理回顾"><a href="#webpack打包原理回顾" class="headerlink" title="webpack打包原理回顾"></a>webpack打包原理回顾</h3><p>● 解析入口文件：Webpack 会从配置文件中读取入口文件的路径，然后解析入口文件，如果入口文件引入了别的文件，webpack就要先将这些文件一个一个的读取完毕，当然读取的代码里面可能有html、css等格式，所以webpack会利用一些loader将这些格式转换成js格式，生成一个抽象语法树<br>● 加载模块：Webpack 会根据依赖图中的信息，递归地加载所有需要的模块。对于每个模块，Webpack 会根据其类型（例如 JavaScript、CSS、图片等）使用相应的 loader 进行转换和处理。<br>● 分析模块间的依赖关系：Webpack 会分析每个模块之间的依赖关系，并生成一张依赖图谱。这个过程中，Webpack 会确定每个模块的执行顺序，并创建一个 chunk。<br>● 生成输出文件：最后，Webpack 会根据 chunk 的信息，生成一个或多个输出文件。输出文件可以是 JavaScript 文件、CSS 文件、图片文件等。<br>关注到上面的过程，可以发现主要优化的就是第二步以及第三步</p>
+<h4 id="拆分多入口"><a href="#拆分多入口" class="headerlink" title="拆分多入口"></a>拆分多入口</h4><p>webpack对于单入口文件，每个入口文件把自己所依赖的资源全部打包到一起，即使一个资源循环加载的话，也只会打包一份，因此如果是一个比较大的应用的话，可以拆分成多个入口，这里拆分可以是按照页面拆分或者。。。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">    minivideo: <span class="string">'src/pages/miniVideo/index.jsx'</span>,</span><br><span class="line">    minivideoHome: <span class="string">'src/pages/home/index.jsx'</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="提取公共包"><a href="#提取公共包" class="headerlink" title="提取公共包"></a>提取公共包</h4><p>一个多页面应用，如果所有的页面都依赖于一样的基础库，那如果所有的entry都包含有基础库的代码就会造成浪费</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 单入口</span></span><br><span class="line">  <span class="comment">// entry: './src/main.js',</span></span><br><span class="line">  <span class="comment">// 多入口</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    main: <span class="string">"./src/main.js"</span>,</span><br><span class="line">    app: <span class="string">"./src/app.js"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">"./dist"</span>),</span><br><span class="line">    <span class="comment">// [name]是webpack命名规则，使用chunk的name作为输出的文件名。</span></span><br><span class="line">    <span class="comment">// 什么是chunk？打包的资源就是chunk，输出出去叫bundle。</span></span><br><span class="line">    <span class="comment">// chunk的name是啥呢？ 比如： entry中xxx: "./src/xxx.js", name就是xxx。注意是前面的xxx，和文件名无关。</span></span><br><span class="line">    <span class="comment">// 为什么需要这样命名呢？如果还是之前写法main.js，那么打包生成两个js文件都会叫做main.js会发生覆盖。(实际上会直接报错的)</span></span><br><span class="line">    filename: <span class="string">"js/[name].js"</span>,</span><br><span class="line">    clean: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">"./public/index.html"</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">"production"</span>,</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    <span class="comment">// 代码分割配置</span></span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: <span class="string">"all"</span>, <span class="comment">// 对所有模块都进行分</span></span><br><span class="line">      <span class="comment">// 修改配置</span></span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        <span class="comment">// 组，哪些模块要打包到一个组</span></span><br><span class="line">        <span class="comment">// defaultVendors: &#123; // 组名</span></span><br><span class="line">        <span class="comment">//   test: /[\\/]node_modules[\\/]/, // 需要打包到一起的模块</span></span><br><span class="line">        <span class="comment">//   priority: -10, // 权重（越大越高）</span></span><br><span class="line">        <span class="comment">//   reuseExistingChunk: true, // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块</span></span><br><span class="line">        <span class="comment">// &#125;,</span></span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          <span class="comment">// 其他没有写的配置会使用上面的默认值</span></span><br><span class="line">          minSize: <span class="number">0</span>, <span class="comment">// 我们定义的文件体积太小了，所以要改打包的最小文件体积</span></span><br><span class="line">          minChunks: <span class="number">2</span>,</span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="减少依赖处理时间"><a href="#减少依赖处理时间" class="headerlink" title="减少依赖处理时间"></a>减少依赖处理时间</h4><p>● CDN分包<br>之前对打包体积进行分析的时候，发现react-dom、react是占据体积非常大的几个包，在打包这些包的时候就非常耗时。cdn分包可以让我们在打包过程中将特定包分离出来，从而提升打包速度。<br>排除部分库的打包需要借助<code>html-webpack-externals-plugin</code> 插件<br>减少loader解析转换时间</p>
+<p>● 打包速度分析：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add speed-measure-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+
+<p>我们借助 <code>speed-measure-webpack-plugin</code> 插件，它分析 webpack 的总打包耗时以及每个 plugin 和 loader 的打包耗时，从而让我们对打包时间较长的部分进行针对性优化。<br>● 多进程构建</p>
+<p>对于耗时较长的模块，同时开启多个 nodejs 进程进行构建<br>thread-loader：将原有的 webpack 对 loader 的执行过程从单一进程的形式扩展成多进程模式，来加速代码构建<br>● 缩小构建范围</p>
+<p>构建过程是默认全局查找，这非常的耗时。通过手动配置rules中的文件查找范围test、include可以减少打包的范围，从而提升打包的速度。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        use: [<span class="string">'babel-loader'</span>],</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>● 缓存Eslint 检查 和 Babel 编译结果</p>
+<p>每次打包时 js 文件都要经过 Eslint 检查 和 Babel 编译，速度比较慢。我们可以缓存之前的 Eslint 检查 和 Babel 编译结果，这样第二次打包时速度就会更快了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            <span class="comment">// exclude: /node_modules/, // 排除node_modules代码不编译</span></span><br><span class="line">            include: path.resolve(__dirname, <span class="string">"../src"</span>), <span class="comment">// 也可以用包含</span></span><br><span class="line">            loader: <span class="string">"babel-loader"</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">              cacheDirectory: <span class="literal">true</span>, <span class="comment">// 开启babel编译缓存</span></span><br><span class="line">              cacheCompression: <span class="literal">false</span>, <span class="comment">// 缓存文件不要压缩</span></span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line"><span class="comment">// eslint</span></span><br><span class="line">                <span class="keyword">new</span> ESLintWebpackPlugin(&#123;</span><br><span class="line">      <span class="comment">// 指定检查文件的根目录</span></span><br><span class="line">      context: path.resolve(__dirname, <span class="string">"../src"</span>),</span><br><span class="line">      exclude: <span class="string">"node_modules"</span>, <span class="comment">// 默认值</span></span><br><span class="line">      cache: <span class="literal">true</span>, <span class="comment">// 开启缓存</span></span><br><span class="line">      <span class="comment">// 缓存目录</span></span><br><span class="line">      cacheLocation: path.resolve(</span><br><span class="line">        __dirname,</span><br><span class="line">        <span class="string">"../node_modules/.cache/.eslintcache"</span></span><br><span class="line">      ),</span><br><span class="line">    &#125;),</span><br></pre></td></tr></table></figure>
+
+<p>● 配置oneOf</p>
+<p>使得匹配上一个 loader, 剩下的就不再匹配了，解决打包时每个文件都会经过所有 loader 处理，虽然因为 test 正则原因实际没有处理上，但是都要过一遍。比较慢的问题</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> ESLintWebpackPlugin = <span class="built_in">require</span>(<span class="string">"eslint-webpack-plugin"</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">"./src/main.js"</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="literal">undefined</span>, <span class="comment">// 开发模式没有输出，不需要指定输出目录</span></span><br><span class="line">    filename: <span class="string">"static/js/main.js"</span>, <span class="comment">// 将 js 文件输出到 static/js 目录中</span></span><br><span class="line">    <span class="comment">// clean: true, // 开发模式没有输出，不需要清空输出结果</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        oneOf: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="comment">// 用来匹配 .css 结尾的文件</span></span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            <span class="comment">// use 数组里面 Loader 执行顺序是从右到左</span></span><br><span class="line">            use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>],</span><br><span class="line">          &#125;,</span><br><span class="line"></span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(ttf|woff2?)$/</span>,</span><br><span class="line">            type: <span class="string">"asset/resource"</span>,</span><br><span class="line">            generator: &#123;</span><br><span class="line">              filename: <span class="string">"static/media/[hash:8][ext][query]"</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            exclude: <span class="regexp">/node_modules/</span>, <span class="comment">// 排除node_modules代码不编译</span></span><br><span class="line">            loader: <span class="string">"babel-loader"</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h4 id="缓存生成的-webpack-模块和-chunk"><a href="#缓存生成的-webpack-模块和-chunk" class="headerlink" title="缓存生成的 webpack 模块和 chunk"></a>缓存生成的 webpack 模块和 chunk</h4><p>webpack5 内置了 <code>cache</code> 模块，缓存生成的 webpack 模块和 chunk，来改善构建速度。它在开发环境下会默认设置为 <code>type: &#39;memory&#39;</code> 而在生产环境中被禁用。可以通过设置 <code>cache: { type: &#39;filesystem&#39; }</code>来开放更多配置项<br>比如我在<code>webpack.config.js</code>中如下配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;   <span class="attr">cache</span>: &#123;     <span class="attr">type</span>: <span class="string">'filesystem'</span>,   &#125;, &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>那么第一次打包后，就会在node_modules文件夹下面生成一个cache文件夹，从而第二次打包速度显著提升。</p>
+
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-15T22:05:31+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>updated at Apr 15, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/ashley271017.github.io/tags/webpack/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>webpack</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://ashleyblog.xyz/2020/02/13/webpack构建速度优化/&title=webpack构建速度优化 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ashleyblog.xyz/2020/02/13/webpack构建速度优化/&title=webpack构建速度优化 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://ashleyblog.xyz/2020/02/13/webpack构建速度优化/&title=webpack构建速度优化 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2020/02/15/webpack打包产物优化/" rel="prev" title="webpack打包产物优化">
+                                  
+                                      webpack打包产物优化
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/webpack/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>webpack</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2020/01/06/算法填坑/" rel="prev" title="算法填坑">
+                                    
+                                        算法填坑
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/算法/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>算法</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'webpack构建速度优化',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/ashley271017.github.io/images/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        <!-- 
+          
+            <a href="https://github.com/earnest1997"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+         -->
+        失落，是因为你总在跟别人比较
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#webpack打包原理回顾"><span class="toc-text">webpack打包原理回顾</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#拆分多入口"><span class="toc-text">拆分多入口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提取公共包"><span class="toc-text">提取公共包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#减少依赖处理时间"><span class="toc-text">减少依赖处理时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缓存生成的-webpack-模块和-chunk"><span class="toc-text">缓存生成的 webpack 模块和 chunk</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/" href="/ashley271017.github.io/"
+          
+          
+          id="ashley271017.github.io">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/friends/" href="/ashley271017.github.io/friends/"
+          
+            rel="nofollow"
+          
+          
+          id="ashley271017.github.iofriends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/category/"
+    title="blog/category/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/sass/" href="/ashley271017.github.io/categories/sass/"><div class='name'>sass</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/ts/" href="/ashley271017.github.io/categories/ts/"><div class='name'>ts</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/性能优化/" href="/ashley271017.github.io/categories/性能优化/"><div class='name'>性能优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/成长/" href="/ashley271017.github.io/categories/成长/"><div class='name'>成长</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/配置/" href="/ashley271017.github.io/categories/配置/"><div class='name'>配置</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面经/" href="/ashley271017.github.io/categories/面经/"><div class='name'>面经</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/css/" href="/ashley271017.github.io/categories/面经/css/"><div class='name'>css</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/js/" href="/ashley271017.github.io/categories/面经/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/浏览器/" href="/ashley271017.github.io/categories/面经/浏览器/"><div class='name'>浏览器</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面试/" href="/ashley271017.github.io/categories/面试/"><div class='name'>面试</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面试/js/" href="/ashley271017.github.io/categories/面试/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/tags/"
+    title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="https://github.com/earnest1997"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+</div>
+  <div>
+    联系方式：ashley19971212@gmail.com
+    
+      , 
+      总浏览量
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/ashley271017.github.io/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["/ashley271017.github.io/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/ashley271017.github.io/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0.5/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "vu5VJ9hGtTUPkCsBP1ItVzg9-gzGzoHsz",
+    appKey: "HfSu2jw0KjCyYYMydHTCArO2",
+    placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1681567989234')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

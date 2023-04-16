@@ -295,6 +295,8 @@
         
       </div>
       
+        <a title='webpack构建速度优化' href='/ashley271017.github.io/2020/02/13/webpack构建速度优化/'><img class='thumbnail' src='https://img1.baidu.com/it/u=2914481781,2222498334&fm=253&fmt=auto&app=138&f=JPEG?w=891&h=500'></a>
+      
       
         <hr>
       
@@ -304,27 +306,45 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h3 id="webpack打包原理回顾"><a href="#webpack打包原理回顾" class="headerlink" title="webpack打包原理回顾"></a>webpack打包原理回顾</h3><p>● 解析入口文件：Webpack 会从配置文件中读取入口文件的路径，然后解析入口文件，如果入口文件引入了别的文件，webpack就要先将这些文件一个一个的读取完毕，当然读取的代码里面可能有html、css等格式，所以webpack会利用一些loader将这些格式转换成js格式，生成一个抽象语法树<br>● 加载模块：Webpack 会根据依赖图中的信息，递归地加载所有需要的模块。对于每个模块，Webpack 会根据其类型（例如 JavaScript、CSS、图片等）使用相应的 loader 进行转换和处理。<br>● 分析模块间的依赖关系：Webpack 会分析每个模块之间的依赖关系，并生成一张依赖图谱。这个过程中，Webpack 会确定每个模块的执行顺序，并创建一个 chunk。<br>● 生成输出文件：最后，Webpack 会根据 chunk 的信息，生成一个或多个输出文件。输出文件可以是 JavaScript 文件、CSS 文件、图片文件等。<br>关注到上面的过程，可以发现主要优化的就是第二步以及第三步</p>
-<h4 id="拆分多入口"><a href="#拆分多入口" class="headerlink" title="拆分多入口"></a>拆分多入口</h4><p>webpack对于单入口文件，每个入口文件把自己所依赖的资源全部打包到一起，即使一个资源循环加载的话，也只会打包一份，因此如果是一个比较大的应用的话，可以拆分成多个入口，这里拆分可以是按照页面拆分或者。。。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">    minivideo: <span class="string">'src/pages/miniVideo/index.jsx'</span>,</span><br><span class="line">    minivideoHome: <span class="string">'src/pages/home/index.jsx'</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+          <h3 id="webpack打包原理回顾"><a href="#webpack打包原理回顾" class="headerlink" title="webpack打包原理回顾"></a>webpack打包原理回顾</h3><ul>
+<li>解析入口文件：Webpack 会从配置文件中读取入口文件的路径，然后解析入口文件，如果入口文件引入了别的文件，webpack就要先将这些文件一个一个的读取完毕，当然读取的代码里面可能有html、css等格式，所以webpack会利用一些loader将这些格式转换成js格式，生成一个抽象语法树</li>
+<li>加载模块：Webpack 会根据依赖图中的信息，递归地加载所有需要的模块。对于每个模块，Webpack 会根据其类型（例如 JavaScript、CSS、图片等）使用相应的 loader 进行转换和处理。 </li>
+<li>分析模块间的依赖关系：Webpack 会分析每个模块之间的依赖关系，并生成一张依赖图谱。这个过程中，Webpack 会确定每个模块的执行顺序，并创建一个 chunk。 </li>
+<li>生成输出文件：最后，Webpack 会根据 chunk 的信息，生成一个或多个输出文件。输出文件可以是 JavaScript 文件、CSS 文件、图片文件等。<br>关注到上面的过程，可以发现主要优化的就是第二步以及第三步<h4 id="拆分多入口"><a href="#拆分多入口" class="headerlink" title="拆分多入口"></a>拆分多入口</h4>webpack对于单入口文件，每个入口文件把自己所依赖的资源全部打包到一起，即使一个资源循环加载的话，也只会打包一份，因此如果是一个比较大的应用的话，可以拆分成多个入口，这里拆分可以是按照页面拆分或者。。。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">    minivideo: <span class="string">'src/pages/miniVideo/index.jsx'</span>,</span><br><span class="line">    minivideoHome: <span class="string">'src/pages/home/index.jsx'</span>,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h4 id="提取公共包"><a href="#提取公共包" class="headerlink" title="提取公共包"></a>提取公共包</h4><p>一个多页面应用，如果所有的页面都依赖于一样的基础库，那如果所有的entry都包含有基础库的代码就会造成浪费</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 单入口</span></span><br><span class="line">  <span class="comment">// entry: './src/main.js',</span></span><br><span class="line">  <span class="comment">// 多入口</span></span><br><span class="line">  entry: &#123;</span><br><span class="line">    main: <span class="string">"./src/main.js"</span>,</span><br><span class="line">    app: <span class="string">"./src/app.js"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">"./dist"</span>),</span><br><span class="line">    <span class="comment">// [name]是webpack命名规则，使用chunk的name作为输出的文件名。</span></span><br><span class="line">    <span class="comment">// 什么是chunk？打包的资源就是chunk，输出出去叫bundle。</span></span><br><span class="line">    <span class="comment">// chunk的name是啥呢？ 比如： entry中xxx: "./src/xxx.js", name就是xxx。注意是前面的xxx，和文件名无关。</span></span><br><span class="line">    <span class="comment">// 为什么需要这样命名呢？如果还是之前写法main.js，那么打包生成两个js文件都会叫做main.js会发生覆盖。(实际上会直接报错的)</span></span><br><span class="line">    filename: <span class="string">"js/[name].js"</span>,</span><br><span class="line">    clean: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">"./public/index.html"</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">  ],</span><br><span class="line">  mode: <span class="string">"production"</span>,</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    <span class="comment">// 代码分割配置</span></span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: <span class="string">"all"</span>, <span class="comment">// 对所有模块都进行分</span></span><br><span class="line">      <span class="comment">// 修改配置</span></span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        <span class="comment">// 组，哪些模块要打包到一个组</span></span><br><span class="line">        <span class="comment">// defaultVendors: &#123; // 组名</span></span><br><span class="line">        <span class="comment">//   test: /[\\/]node_modules[\\/]/, // 需要打包到一起的模块</span></span><br><span class="line">        <span class="comment">//   priority: -10, // 权重（越大越高）</span></span><br><span class="line">        <span class="comment">//   reuseExistingChunk: true, // 如果当前 chunk 包含已从主 bundle 中拆分出的模块，则它将被重用，而不是生成新的模块</span></span><br><span class="line">        <span class="comment">// &#125;,</span></span><br><span class="line">        <span class="keyword">default</span>: &#123;</span><br><span class="line">          <span class="comment">// 其他没有写的配置会使用上面的默认值</span></span><br><span class="line">          minSize: <span class="number">0</span>, <span class="comment">// 我们定义的文件体积太小了，所以要改打包的最小文件体积</span></span><br><span class="line">          minChunks: <span class="number">2</span>,</span><br><span class="line">          priority: <span class="number">-20</span>,</span><br><span class="line">          reuseExistingChunk: <span class="literal">true</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h4 id="减少依赖处理时间"><a href="#减少依赖处理时间" class="headerlink" title="减少依赖处理时间"></a>减少依赖处理时间</h4><p>● CDN分包<br>之前对打包体积进行分析的时候，发现react-dom、react是占据体积非常大的几个包，在打包这些包的时候就非常耗时。cdn分包可以让我们在打包过程中将特定包分离出来，从而提升打包速度。<br>排除部分库的打包需要借助<code>html-webpack-externals-plugin</code> 插件<br>减少loader解析转换时间</p>
-<p>● 打包速度分析：</p>
+<h4 id="减少依赖处理时间"><a href="#减少依赖处理时间" class="headerlink" title="减少依赖处理时间"></a>减少依赖处理时间</h4><ul>
+<li><p>CDN分包<br>之前对打包体积进行分析的时候，发现react-dom、react是占据体积非常大的几个包，在打包这些包的时候就非常耗时。cdn分包可以让我们在打包过程中将特定包分离出来，从而提升打包速度。<br>排除部分库的打包需要借助<code>html-webpack-externals-plugin</code> 插件<br>减少loader解析转换时间</p>
+</li>
+<li><p>打包速度分析：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add speed-measure-webpack-plugin -D</span><br></pre></td></tr></table></figure>
 
-<p>我们借助 <code>speed-measure-webpack-plugin</code> 插件，它分析 webpack 的总打包耗时以及每个 plugin 和 loader 的打包耗时，从而让我们对打包时间较长的部分进行针对性优化。<br>● 多进程构建</p>
-<p>对于耗时较长的模块，同时开启多个 nodejs 进程进行构建<br>thread-loader：将原有的 webpack 对 loader 的执行过程从单一进程的形式扩展成多进程模式，来加速代码构建<br>● 缩小构建范围</p>
+</li>
+</ul>
+<p>我们借助 <code>speed-measure-webpack-plugin</code> 插件，它分析 webpack 的总打包耗时以及每个 plugin 和 loader 的打包耗时，从而让我们对打包时间较长的部分进行针对性优化。</p>
+<ul>
+<li>多进程构建</li>
+</ul>
+<p>对于耗时较长的模块，同时开启多个 nodejs 进程进行构建<br>thread-loader：将原有的 webpack 对 loader 的执行过程从单一进程的形式扩展成多进程模式，来加速代码构建</p>
+<ul>
+<li>缩小构建范围</li>
+</ul>
 <p>构建过程是默认全局查找，这非常的耗时。通过手动配置rules中的文件查找范围test、include可以减少打包的范围，从而提升打包的速度。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        use: [<span class="string">'babel-loader'</span>],</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>● 缓存Eslint 检查 和 Babel 编译结果</p>
+<ul>
+<li>缓存Eslint 检查 和 Babel 编译结果</li>
+</ul>
 <p>每次打包时 js 文件都要经过 Eslint 检查 和 Babel 编译，速度比较慢。我们可以缓存之前的 Eslint 检查 和 Babel 编译结果，这样第二次打包时速度就会更快了。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            <span class="comment">// exclude: /node_modules/, // 排除node_modules代码不编译</span></span><br><span class="line">            include: path.resolve(__dirname, <span class="string">"../src"</span>), <span class="comment">// 也可以用包含</span></span><br><span class="line">            loader: <span class="string">"babel-loader"</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">              cacheDirectory: <span class="literal">true</span>, <span class="comment">// 开启babel编译缓存</span></span><br><span class="line">              cacheCompression: <span class="literal">false</span>, <span class="comment">// 缓存文件不要压缩</span></span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line"><span class="comment">// eslint</span></span><br><span class="line">                <span class="keyword">new</span> ESLintWebpackPlugin(&#123;</span><br><span class="line">      <span class="comment">// 指定检查文件的根目录</span></span><br><span class="line">      context: path.resolve(__dirname, <span class="string">"../src"</span>),</span><br><span class="line">      exclude: <span class="string">"node_modules"</span>, <span class="comment">// 默认值</span></span><br><span class="line">      cache: <span class="literal">true</span>, <span class="comment">// 开启缓存</span></span><br><span class="line">      <span class="comment">// 缓存目录</span></span><br><span class="line">      cacheLocation: path.resolve(</span><br><span class="line">        __dirname,</span><br><span class="line">        <span class="string">"../node_modules/.cache/.eslintcache"</span></span><br><span class="line">      ),</span><br><span class="line">    &#125;),</span><br></pre></td></tr></table></figure>
 
-<p>● 配置oneOf</p>
+<ul>
+<li>配置oneOf</li>
+</ul>
 <p>使得匹配上一个 loader, 剩下的就不再匹配了，解决打包时每个文件都会经过所有 loader 处理，虽然因为 test 正则原因实际没有处理上，但是都要过一遍。比较慢的问题</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">"path"</span>);</span><br><span class="line"><span class="keyword">const</span> ESLintWebpackPlugin = <span class="built_in">require</span>(<span class="string">"eslint-webpack-plugin"</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">"html-webpack-plugin"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">"./src/main.js"</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="literal">undefined</span>, <span class="comment">// 开发模式没有输出，不需要指定输出目录</span></span><br><span class="line">    filename: <span class="string">"static/js/main.js"</span>, <span class="comment">// 将 js 文件输出到 static/js 目录中</span></span><br><span class="line">    <span class="comment">// clean: true, // 开发模式没有输出，不需要清空输出结果</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        oneOf: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="comment">// 用来匹配 .css 结尾的文件</span></span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            <span class="comment">// use 数组里面 Loader 执行顺序是从右到左</span></span><br><span class="line">            use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>],</span><br><span class="line">          &#125;,</span><br><span class="line"></span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.(ttf|woff2?)$/</span>,</span><br><span class="line">            type: <span class="string">"asset/resource"</span>,</span><br><span class="line">            generator: &#123;</span><br><span class="line">              filename: <span class="string">"static/media/[hash:8][ext][query]"</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">            exclude: <span class="regexp">/node_modules/</span>, <span class="comment">// 排除node_modules代码不编译</span></span><br><span class="line">            loader: <span class="string">"babel-loader"</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
 
@@ -343,10 +363,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-15T22:05:31+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:23:42+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 15, 2023</p>
+    <p>updated at Apr 16, 2023</p>
   </a>
 </div>
 
@@ -675,7 +695,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 20.67px; color: #6c6c6c">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20.67px; color: #6c6c6c">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 17.33px; color: #828282">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -718,12 +738,12 @@
 </div>
   <div>
     联系方式：ashley19971212@gmail.com
-    
+    <!-- 
       , 
       总浏览量
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
       次
-    
+     -->
     . 
   </div>
 </footer>
@@ -792,14 +812,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
           });
         } else {
           $.backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
@@ -968,7 +988,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681568285949')
+  navigator.serviceWorker.register('/sw.js?t=1681615907510')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

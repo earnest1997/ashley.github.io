@@ -295,6 +295,8 @@
         
       </div>
       
+        <a title='webpack打包产物优化' href='/ashley271017.github.io/2020/02/15/webpack打包产物优化/'><img class='thumbnail' src='https://img1.baidu.com/it/u=2914481781,2222498334&fm=253&fmt=auto&app=138&f=JPEG?w=891&h=500'></a>
+      
       
         <hr>
       
@@ -304,7 +306,11 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <p>● 体积更小<br>● 合理分包，不重复加载<br>● 加载速度更快</p>
+          <ul>
+<li>体积更小</li>
+<li>合理分包，不重复加载</li>
+<li>加载速度更快</li>
+</ul>
 <h3 id="减少体积"><a href="#减少体积" class="headerlink" title="减少体积"></a>减少体积</h3><p>开启tree shaking</p>
 <h4 id="什么是tree-shaking？"><a href="#什么是tree-shaking？" class="headerlink" title="什么是tree shaking？"></a>什么是tree shaking？</h4><p>他会在打包过程中通过静态分析模块之间的依赖关系从而确定哪些模块导出/引入的值没有被使用，从而将它删除，Webpack 4生产环境已经默认开启了这个功能，无需其他配置。</p>
 <h4 id="减少Babel编译后的产物体积"><a href="#减少Babel编译后的产物体积" class="headerlink" title="减少Babel编译后的产物体积"></a>减少Babel编译后的产物体积</h4><p>Babel 为编译的每个文件都插入了辅助代码，使代码体积过大，你可以将这些辅助代码作为一个独立模块，来避免重复引入。<br><code>@babel/plugin-transform-runtime</code>的作用: 禁用了 Babel 自动对每个文件的 runtime 注入，而是引入 <code>@babel/plugin-transform-runtime</code> 并且使所有辅助代码从这里引用</p>
@@ -324,11 +330,17 @@
 </li>
 </ul>
 <h4 id="充分利用缓存"><a href="#充分利用缓存" class="headerlink" title="充分利用缓存"></a>充分利用缓存</h4><p>bundle 加 hash 值<br>给产出的文件增加<code>hash</code>值，当内容没有变化时，生成的文件名将不会变化，浏览器就会应用缓存，从而提升加载速度<br>将来开发时我们对静态资源会使用缓存来优化，这样浏览器第二次请求资源就能读取缓存了，速度很快。<br>但是这样的话就会有一个问题, 如果不设置hash:因为前后输出的文件名是一样的，一旦将来发布新版本，因为文件名没有变化导致浏览器会直接读取缓存，不会加载新资源，项目也就没法更新了。 在360是通过替换资源前面的链接放一个hash值来实现的。<br>hash有三种：</p>
-<p>● hash（webpack4 是 hash）</p>
+<ul>
+<li>hash（webpack4 是 hash）</li>
+</ul>
 <p>每次修改任何一个文件，所有文件名的 hash 至都将改变。所以一旦修改了任何一个文件，整个项目的文件缓存都将失效。</p>
-<p>● chunkhash</p>
+<ul>
+<li>chunkhash</li>
+</ul>
 <p>chunkhash根据不同的入口文件(entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值。当某个文件内容发生变动时，再次执行打包，只有该文件以及依赖该文件的文件的打包结果 hash 值会发生改变。<br>比如：在 index.js 中引用了 index.css ，打包后他们属于一个模块，hash值也是一样的。<br>当JS文件变化的时候，css文件的hash也会变化</p>
-<p>● contenthash</p>
+<ul>
+<li>contenthash</li>
+</ul>
 <p>根据文件内容生成 hash 值，只有文件内容变化了，hash 值才会变化。所有文件 hash 值是独享且不同的。<br>在生产环境下，我们对 output 中打包的文件名一般采用 chunkhash，对于 css 等样式文件，采用 contenthash，这样可以使得各个模块最小范围的改变打包 hash 值。</p>
 
         </div>
@@ -341,10 +353,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-15T22:05:20+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:23:42+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 15, 2023</p>
+    <p>updated at Apr 16, 2023</p>
   </a>
 </div>
 
@@ -418,16 +430,16 @@
                         <span class="art-item-left">
                             <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
                             <h4>
-                                <a href="/ashley271017.github.io/2021/04/10/常见登录方案/" rel="prev" title="常见登录方案">
+                                <a href="/ashley271017.github.io/2020/02/23/react性能优化/" rel="prev" title="react性能优化">
                                   
-                                      常见登录方案
+                                      react性能优化
                                   
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/ashley271017.github.io/tags/网络/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>网络</a>
+                                    <a class="tag" href="/ashley271017.github.io/tags/react/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>react</a> <a class="tag" href="/ashley271017.github.io/tags/性能优化/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>性能优化</a>
                                 </h6>
                             
                         </span>
@@ -673,7 +685,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 20.67px; color: #6c6c6c">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20.67px; color: #6c6c6c">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 17.33px; color: #828282">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -716,12 +728,12 @@
 </div>
   <div>
     联系方式：ashley19971212@gmail.com
-    
+    <!-- 
       , 
       总浏览量
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
       次
-    
+     -->
     . 
   </div>
 </footer>
@@ -790,14 +802,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
           });
         } else {
           $.backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
@@ -966,7 +978,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681568285949')
+  navigator.serviceWorker.register('/sw.js?t=1681615907510')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

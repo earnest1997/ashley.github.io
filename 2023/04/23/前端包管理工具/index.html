@@ -295,6 +295,8 @@
         
       </div>
       
+        <a title='前端包管理工具' href='/ashley271017.github.io/2023/04/23/前端包管理工具/'><img class='thumbnail' src='https://img0.baidu.com/it/u=624594027,2156609243&fm=253&fmt=auto&app=138&f=JPEG?w=1000&h=403'></a>
+      
       
         <hr>
       
@@ -328,14 +330,22 @@
 <p>2、yarn.lock<br>yarn.lock 用来确定依赖树之间的结构，确保同一个项目生成同样的 node_modules</p>
 <p>但是 yarn 跟 npm 一样，都没有解决幽灵依赖的问题。</p>
 <h3 id="pnpm"><a href="#pnpm" class="headerlink" title="pnpm"></a>pnpm</h3><p>pnpm 在 2017 年发布，它的出现，解决了 npm、yarn 长期以来存在的性能、安全访问等问题。</p>
-<p>相对于别的包管理工具具有如下的特点：<br>● 包安装速度极快；<br>● 磁盘空间利用非常高效。</p>
+<p>相对于别的包管理工具具有如下的特点：</p>
+<ul>
+<li>包安装速度极快；</li>
+<li>磁盘空间利用非常高效。</li>
+</ul>
 <p>pnpm的包管理方式是通过建立链接+store的方式来完成快速安装和防止重复安装（以减少磁盘空间）的问题。</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2023/png/992007/1678804378528-4c5762fc-f38e-475f-8d19-e90293a7385c.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0" alt="image"></p>
 <h4 id="store"><a href="#store" class="headerlink" title="store"></a>store</h4><p>pnpm 默认会将所有依赖包下载到系统{home dir}/Library/pnpm/store/v3中，系统中相同文件只会存在一份。</p>
 <h4 id="软硬链接"><a href="#软硬链接" class="headerlink" title="软硬链接"></a>软硬链接</h4><p><strong>软连接</strong><br>每个项目 node_modules 下安装的包结构为树状，符合 node 就近查找规则，以软链接方式将内容指向 node_modules/.pnpm 中的包。</p>
 <p><strong>硬链接</strong><br>每个项目的 node_modules 下有 .pnpm 目录以打平结构管理每个版本包的源码内容，以硬链接方式指向 pnpm-store 中的文件地址。</p>
 <p>这样幽灵依赖的问题就解决了，包版本不确定性的问题也就解决了。毕竟顶层就只有我们手动安装的包，其他依赖包都收在.pnpm中</p>
-<p>除此之外，这种方式的好处是：<br>● 不会重复安装同一个包。用 npm/yarn 的时候，如果 100 个项目都依赖 lodash，那么 lodash 很可能就被安装了 100 次，磁盘中就有 100 个地方写入了这部分代码。但在使用 pnpm 只会安装一次，磁盘中只有一个地方写入，后面再次使用都会直接使用 hardlink(硬链接）<br>● 即使一个包的不同版本，pnpm 也会极大程度地复用之前版本的代码。比如 lodash 有 100 个文件，更新版本之后多了一个文件，那么磁盘当中并不会重新写入 101 个文件，而是保留原来的 100 个文件的 hardlink，仅仅写入那一个新增的文件。</p>
+<p>除此之外，这种方式的好处是：</p>
+<ul>
+<li>不会重复安装同一个包。用 npm/yarn 的时候，如果 100 个项目都依赖 lodash，那么 lodash 很可能就被安装了 100 次，磁盘中就有 100 个地方写入了这部分代码。但在使用 pnpm 只会安装一次，磁盘中只有一个地方写入，后面再次使用都会直接使用 hardlink(硬链接）</li>
+<li>即使一个包的不同版本，pnpm 也会极大程度地复用之前版本的代码。比如 lodash 有 100 个文件，更新版本之后多了一个文件，那么磁盘当中并不会重新写入 101 个文件，而是保留原来的 100 个文件的 hardlink，仅仅写入那一个新增的文件。</li>
+</ul>
 <h4 id="软硬链接的区别"><a href="#软硬链接的区别" class="headerlink" title="软硬链接的区别"></a>软硬链接的区别</h4><p><a href="https://note.youdao.com/web/#/file/WEB29dc8e3158285b5c57f98225ccb251c8/note/WEBa9364ab47e74719d1e4477ea1e0394b7/" target="_blank" rel="noopener">软硬链接的区别</a></p>
 <p>总结就是软链接指向的是文件的文件路径，硬链接记录的是文件的内容，但是当源文件被删除的时候，硬链接还是能访问（文件真正删除的条件是与之相关的所有硬连接文件均被删除。）软硬链接任何一个文件发生改变，都会同步到其他的链接，因此硬链接可以用来被多个地方同时操作但是防止误删，所以pnpm会使用硬连接指向.pnpm store 中的文件地址，相比硬链接，软链接的优势是：可以立即知道符号链接指向的位置，而使用硬链接，您需要探索整个文件系统以找到共享相同 inode 的文件。因此软链接通常用来做快捷方式，而这里使用软链接是为了更快找到依赖在pnpm store中的位置</p>
 
@@ -349,10 +359,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-24T00:25:45+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:23:41+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 24, 2023</p>
+    <p>updated at Apr 16, 2023</p>
   </a>
 </div>
 
@@ -427,16 +437,16 @@
                         <span class="art-item-right" aria-hidden="true">
                             <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/ashley271017.github.io/2023/04/23/升级Babel7踩坑/" rel="prev" title="升级Babel7踩坑">
+                                <a href="/ashley271017.github.io/2023/04/23/模块联邦在微前端架构中的实践/" rel="prev" title="模块联邦在微前端架构中的实践">
                                     
-                                        升级Babel7踩坑
+                                        模块联邦在微前端架构中的实践
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/ashley271017.github.io/tags/babel/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>babel</a>
+                                    <a class="tag" href="/ashley271017.github.io/tags/webpack/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>webpack</a> <a class="tag" href="/ashley271017.github.io/tags/模块联邦/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>模块联邦</a>
                                 </h6>
                             
                         </span>
@@ -662,7 +672,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 14px; color: #999">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 20.67px; color: #6c6c6c">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20.67px; color: #6c6c6c">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 17.33px; color: #828282">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -705,12 +715,12 @@
 </div>
   <div>
     联系方式：ashley19971212@gmail.com
-    
+    <!-- 
       , 
       总浏览量
       <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
       次
-    
+     -->
     . 
   </div>
 </footer>
@@ -779,14 +789,14 @@
       $(function(){
         if ('.cover') {
           $('.cover').backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
           });
         } else {
           $.backstretch(
-          ["/ashley271017.github.io/images/banner.jpg"],
+          ["/ashley271017.github.io/images/bg.jpg"],
           {
             duration: "6000",
             fade: "2500"
@@ -955,7 +965,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681568285949')
+  navigator.serviceWorker.register('/sw.js?t=1681615907510')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

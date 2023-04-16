@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+<head><link rel=manifest href=/ashley271017.github.io/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/ashley271017.github.io/manifest.json">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>撸一个组件库 | Ashley&#39;s blog</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="manifest" href="/manifest.json">
+  
+    <link rel="stylesheet" href="/ashley271017.github.io/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Ashley's blog</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/"
+            
+            
+            id="ashley271017.github.io">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/collect/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.iocollect">
+            <i class='fas fa-link fa-fw'></i>&nbsp;收藏
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/about/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.ioabout">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/ashley271017.github.io/' >
+        
+          Ashley's blog
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/"
+                  
+                  
+                  id="ashley271017.github.io">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;示例
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/category/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogcategory">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogtags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/"
+                
+                
+                id="ashley271017.github.io">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="ashley271017.github.iofriends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/ashley271017.github.io/2023/04/16/撸一个组件库/">
+        撸一个组件库
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://ashleyblog.xyz" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Ashley</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2023-04-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <a title='撸一个组件库' href='/ashley271017.github.io/2023/04/16/撸一个组件库/'><img class='thumbnail' src='https://img1.baidu.com/it/u=2914481781,2222498334&fm=253&fmt=auto&app=138&f=JPEG?w=891&h=500'></a>
+      
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <p><a href="https://blog.csdn.net/mjzhang1993/article/details/86712439" target="_blank" rel="noopener">组件库的开发</a></p>
+<h2 id="组件库的要求："><a href="#组件库的要求：" class="headerlink" title="组件库的要求："></a>组件库的要求：</h2><h3 id="tree-shaking（tree-shaking）"><a href="#tree-shaking（tree-shaking）" class="headerlink" title="tree shaking（tree shaking）"></a>tree shaking（tree shaking）</h3><h4 id="怎么实现？"><a href="#怎么实现？" class="headerlink" title="怎么实现？"></a>怎么实现？</h4><p>针对支持ESM模块的前端项目：生成ESM格式 即可配合<code>webpack5 tree shaking</code><br>针对不支持ESM的：使用：<code>babel-plugin-import</code> ，它不仅能让：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原始代码</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'vant'</span>;</span><br><span class="line">​</span><br><span class="line"><span class="comment">// 编译后代码</span></span><br><span class="line"><span class="keyword">import</span> Button <span class="keyword">from</span> <span class="string">'vant/es/button'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'vant/es/button/style'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不使用 ESM 的库也能做到上面这样的转换</p>
+<h3 id="生成UMD格式"><a href="#生成UMD格式" class="headerlink" title="生成UMD格式"></a>生成UMD格式</h3><p>以更好的支持前端项目做 external，减少构建时长，生成ESM格式（JS 标准， Tree Shaking 友好，优先考虑使用该模块）以及CJS（模块同时跑在前后端项目，需要兼容）</p>
+<h4 id="产物要求哪几种格式？"><a href="#产物要求哪几种格式？" class="headerlink" title="产物要求哪几种格式？"></a>产物要求哪几种格式？</h4><ul>
+<li>ESM:  JS 标准模块格式， 对Tree Shaking 友好，优先考虑使用该模块</li>
+<li>CJS：如果模块同时跑在前后端项目，需要兼容</li>
+<li>UMD：用以支持支持多种引入方式，自动判断现在的环境来决定代码的导出方式。比如用 script 标签引入的话，代码会被挂载到 window 对象， require 方式的话会以 module.<code>exports</code> 的方式导出等,并且还能支持<code>externals</code>。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack打包生成 umd</span></span><br><span class="line">output: &#123;</span><br><span class="line">  path: config.build.assetsRoot,</span><br><span class="line">  filename: utils.assetsPath(<span class="string">'js/[name].min.js'</span>),</span><br><span class="line">  library: <span class="string">'skel'</span>,</span><br><span class="line">  libraryTarget: <span class="string">'umd</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h3><p>每个组件在打包产物中有一个对应的文件夹</p>
+<ul>
+<li><p>webpack配置 指定多个入口即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">        popup: <span class="string">'./src/popup'</span>,</span><br><span class="line">        background: <span class="string">'./src/background'</span>,</span><br><span class="line">        contentScripts: <span class="string">'./src/content-scripts'</span>,</span><br><span class="line">        demo: <span class="string">'./src/view/demo'</span></span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vite 加几个配置项让打包目录和我们目录对应即可</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">output: [</span><br><span class="line">  &#123;</span><br><span class="line">    format: <span class="string">'es'</span>,</span><br><span class="line">    <span class="comment">// file:'./dist/index.esm.js',</span></span><br><span class="line">    entryFileNames: <span class="string">'[name].js'</span>,</span><br><span class="line">    <span class="comment">//让打包目录和我们目录对应</span></span><br><span class="line">    preserveModules: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 打包根目录</span></span><br><span class="line">    dir: <span class="string">'es'</span>,</span><br><span class="line">    <span class="comment">// Put preserved modules under this path at root level</span></span><br><span class="line">    preserveModulesRoot: <span class="string">`packages/360kuai_ui/src/components`</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    format: <span class="string">'cjs'</span>,</span><br><span class="line">    entryFileNames: <span class="string">'[name].js'</span>,</span><br><span class="line">    <span class="comment">//让打包目录和我们目录对应</span></span><br><span class="line">    preserveModules: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 打包根目录</span></span><br><span class="line">    dir: <span class="string">'lib'</span>,</span><br><span class="line">    <span class="comment">// Put preserved modules under this path at root level</span></span><br><span class="line">    preserveModulesRoot: <span class="string">`packages/360kuai_ui/src/components`</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="package-json-指定模块的入口文件"><a href="#package-json-指定模块的入口文件" class="headerlink" title="package.json 指定模块的入口文件"></a>package.json 指定模块的入口文件</h3><p>package.json文件有两个字段可以指定模块的入口文件：<code>main</code>和<code>exports</code></p>
+<h4 id="main"><a href="#main" class="headerlink" title="main"></a>main</h4><p>当我们从模块中import一个XXX的时候，Node.js 就会到./<code>node_modules</code>目录下面，找到模块，然后根据该模块package.json的main字段去执行入口文件。</p>
+<h4 id="exports"><a href="#exports" class="headerlink" title="exports"></a>exports</h4><p>exports字段的优先级高于main字段。它有多种用法。</p>
+<ul>
+<li><p>覆盖main字段声明主入口<br>有两种写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"exports"</span>: &#123;</span><br><span class="line">    <span class="string">"."</span>: <span class="string">"./main.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"exports"</span>: <span class="string">"./main.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为不同的模块格式指定不一样的入口<br>//  require条件指定require()命令的入口文件（即 CommonJS 的入口），<br>// default条件指定其他情况的入口（即 ES6 的入口）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"exports"</span>: &#123;</span><br><span class="line">    <span class="string">"require"</span>: <span class="string">"./main.cjs"</span>,</span><br><span class="line">    <span class="string">"default"</span>: <span class="string">"./main.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定脚本或子目录的别名。<br>指定/es/react/index.js的别名为/react</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">"exports": &#123;</span><br><span class="line">   "./react": &#123;</span><br><span class="line">     "import": "./es/react/index.js",</span><br><span class="line">     "require": "./lib/react/index.cjs",</span><br><span class="line">     "default": "./dist/react/index.js"</span><br><span class="line">   &#125;,</span><br><span class="line">   "./vue": &#123;</span><br><span class="line">     "import": "./es/vue/index.js",</span><br><span class="line">     "require": "./lib/vue/index.cjs",</span><br><span class="line">     "default": "./dist/vue/index.js"</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="依赖处理："><a href="#依赖处理：" class="headerlink" title="依赖处理："></a>依赖处理：</h3><p>可能需要声明组件库的宿主依赖（<code>peerDependencies</code> 表示同版本依赖）：<code>peerDependencies</code>：宿主依赖，指定了当前模块包在使用前需要安装的依赖，比如说我们目前正在学习的 Element Plus 组件库，它需要宿主环境提供指定的 Vue 版本来搭配使用，如果在一个 npm 包的 dependencies 中定义依赖，执行 <code>npm install</code> 时当子依赖的依赖版本在已经构建的依赖树中匹配不到时，就会重复下载。而 peerDependencies 则可以解决这个问题，在 peerDependencies 中定义的依赖，不会重复下载，但会要求宿主环境提供 peer 依赖一致的版本，否则在安装的时候提示警报亦或报错中断命令的执行。</p>
+<h4 id="实时预览文档"><a href="#实时预览文档" class="headerlink" title="实时预览文档"></a>实时预览文档</h4><h3 id="代码格式化和规范检测"><a href="#代码格式化和规范检测" class="headerlink" title="代码格式化和规范检测"></a>代码格式化和规范检测</h3><ul>
+<li>单测</li>
+<li>支持typescript</li>
+<li>样式隔离<br>因为组件库的样式需要能被用户自定义的样式覆盖，所以不能选用<code>css In modules</code>（打包时会自动将 id 和 class 混淆成全局唯一的 hash 值）等做法，这里参考的antd直接给每个元素加上一个全局的类名，这里可以用<code>postcss</code>插件：<code>autoprefixer</code></li>
+<li>版本号管理<br>使用changeset自动更新包的version和生成changelog。</li>
+</ul>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><ul>
+<li>将样式文件单独拆分到每个组件<br>如果不做处理，最后生成了一个单个的style.css文件，我们想要将样式文件单独拆分到每个组件下怎么办</li>
+<li>external掉scss，避免vite去处理我们的css文件</li>
+<li>写一个脚本将scss文件复制到打包后目录</li>
+<li>将所有的sass文件使用sass.compile手动编译一下，然后将sass文件中引入的sass文件都改成css后缀</li>
+<li>最后自定义一个vite插件，generateBundle拿到打包之后的代码将JS文件中的<code>import xx.scss</code>替换成<code>import xx.css</code></li>
+</ul>
+
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:53:33+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>updated at Apr 16, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/ashley271017.github.io/tags/vite/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>vite</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://ashleyblog.xyz/2023/04/16/撸一个组件库/&title=撸一个组件库 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ashleyblog.xyz/2023/04/16/撸一个组件库/&title=撸一个组件库 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://ashleyblog.xyz/2023/04/16/撸一个组件库/&title=撸一个组件库 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/04/23/模块联邦在微前端架构中的实践/" rel="prev" title="模块联邦在微前端架构中的实践">
+                                  
+                                      模块联邦在微前端架构中的实践
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/webpack/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>webpack</a> <a class="tag" href="/ashley271017.github.io/tags/模块联邦/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>模块联邦</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/04/15/合成事件/" rel="prev" title="合成事件">
+                                    
+                                        合成事件
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/react/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>react</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '撸一个组件库',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/ashley271017.github.io/images/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        <!-- 
+          
+            <a href="https://github.com/earnest1997"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+         -->
+        失落，是因为你总在跟别人比较
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#组件库的要求："><span class="toc-text">组件库的要求：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#tree-shaking（tree-shaking）"><span class="toc-text">tree shaking（tree shaking）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#怎么实现？"><span class="toc-text">怎么实现？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成UMD格式"><span class="toc-text">生成UMD格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#产物要求哪几种格式？"><span class="toc-text">产物要求哪几种格式？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按需加载"><span class="toc-text">按需加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package-json-指定模块的入口文件"><span class="toc-text">package.json 指定模块的入口文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#main"><span class="toc-text">main</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exports"><span class="toc-text">exports</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#依赖处理："><span class="toc-text">依赖处理：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实时预览文档"><span class="toc-text">实时预览文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码格式化和规范检测"><span class="toc-text">代码格式化和规范检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题"><span class="toc-text">遇到的问题</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/" href="/ashley271017.github.io/"
+          
+          
+          id="ashley271017.github.io">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/friends/" href="/ashley271017.github.io/friends/"
+          
+            rel="nofollow"
+          
+          
+          id="ashley271017.github.iofriends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/category/"
+    title="blog/category/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/sass/" href="/ashley271017.github.io/categories/sass/"><div class='name'>sass</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/ts/" href="/ashley271017.github.io/categories/ts/"><div class='name'>ts</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/性能优化/" href="/ashley271017.github.io/categories/性能优化/"><div class='name'>性能优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/成长/" href="/ashley271017.github.io/categories/成长/"><div class='name'>成长</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/配置/" href="/ashley271017.github.io/categories/配置/"><div class='name'>配置</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面经/" href="/ashley271017.github.io/categories/面经/"><div class='name'>面经</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/css/" href="/ashley271017.github.io/categories/面经/css/"><div class='name'>css</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/js/" href="/ashley271017.github.io/categories/面经/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/浏览器/" href="/ashley271017.github.io/categories/面经/浏览器/"><div class='name'>浏览器</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面试/" href="/ashley271017.github.io/categories/面试/"><div class='name'>面试</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面试/js/" href="/ashley271017.github.io/categories/面试/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/tags/"
+    title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 20.67px; color: #6c6c6c">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20.67px; color: #6c6c6c">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 17.33px; color: #828282">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="https://github.com/earnest1997"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+</div>
+  <div>
+    联系方式：ashley19971212@gmail.com
+    <!-- 
+      , 
+      总浏览量
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+     -->
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/ashley271017.github.io/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0.5/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "vu5VJ9hGtTUPkCsBP1ItVzg9-gzGzoHsz",
+    appKey: "HfSu2jw0KjCyYYMydHTCArO2",
+    placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1681636263995')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

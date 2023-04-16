@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+<head><link rel=manifest href=/ashley271017.github.io/manifest.json><meta name="generator" content="Hexo 3.9.0"><link rel="manifest" href="/ashley271017.github.io/manifest.json">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>react18新特性解读 | Ashley&#39;s blog</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="manifest" href="/manifest.json">
+  
+    <link rel="stylesheet" href="/ashley271017.github.io/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Ashley's blog</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/"
+            
+            
+            id="ashley271017.github.io">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/collect/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.iocollect">
+            <i class='fas fa-link fa-fw'></i>&nbsp;收藏
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/about/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.ioabout">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/ashley271017.github.io/' >
+        
+          Ashley's blog
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/"
+                  
+                  
+                  id="ashley271017.github.io">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;示例
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/category/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogcategory">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogtags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/"
+                
+                
+                id="ashley271017.github.io">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="ashley271017.github.iofriends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/ashley271017.github.io/2022/08/16/react18/">
+        react18新特性解读
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://ashleyblog.xyz" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Ashley</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2022-08-16</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><h3 id="什么是并发"><a href="#什么是并发" class="headerlink" title="什么是并发"></a>什么是并发</h3><p>并发是只要一段时间内同时发生多件事情就行。</p>
+<h3 id="并发渲染机制"><a href="#并发渲染机制" class="headerlink" title="并发渲染机制"></a>并发渲染机制</h3><p><del>react18为优化性能做的基于优先级的可打断的渲染流程。主要目标是根据用户的设备性能和网速对渲染过程进行适当的调整，帮助应用始终保持可响应，也就是说它能够保证 React 应用在长时间的渲染过程中依旧保持可交互性，能优先执行高优先级变更，避免页面出现卡顿或无响应的情况，从而提升用户体验。</del></p>
+<p>Fiber 树的更新流程分为 render 阶段与 commit 阶段，render 阶段会收集 Fiber 树中需要更新的部分，代表着对于本次更新，我们需要做哪些具体变更。commit 阶段是将变更应用到真实的宿主环境中</p>
+<p>render 阶段是没有副作用的（只是收集 Fiber 树中需要更新的部分），意味着可以被拆分，在阻塞模式下，render 阶段一次性执行完成，<strong>而在并发渲染模式下，render 阶段可以被拆解</strong></p>
+<h3 id="如何开启"><a href="#如何开启" class="headerlink" title="如何开启"></a>如何开启</h3><p>在 React 18 中，提供了新的 root api，我们只需要把 render 升级成 <code>createRoot(root).render(&lt;App /&gt;)</code> 就可以开启并发模式了。</p>
+<h3 id="为什么会出现这么一套机制"><a href="#为什么会出现这么一套机制" class="headerlink" title="为什么会出现这么一套机制"></a>为什么会出现这么一套机制</h3><p>并发渲染出现之前：一旦它们开始渲染一次更新，它们不能中断包括创建新的 DOM 节点和运行组件中代码在内的工作。我们称这种方式为 “阻塞渲染”。<strong>如果渲染过程耗时比较长的话，就可能导致 UI 线程挂起和事件得不到响应，进而出现页面卡顿</strong>。<br>比如当两个set State同时触发的时候（比如state2会在state1更新的时候也触发更新）会出现什么？同步模式下也就会按照顺序依次执行。<br>但如果这个渲染流程中处理的 fiber 节点比较多，渲染一次就比较慢，这时候用户输入的内容可能就不能及时的渲染出来，用户就会感觉卡，体验不好。（注意之前所说的批处理机制是针对同一个state的）</p>
+<p>并发渲染机制做的就是指定这两个state的优先级，比如：用户输入的 setState 的更新重要程度更高，如果有这种更新就把别的先暂停，执行这次更新，执行完之后再继续处理。<br>并发渲染 示例<br>React 会把 vdom 树转成 fiber 链表，因为 vdom 里只有 children，没有 parent、sibling 信息，而 fiber 节点里有，这样就算打断了也可以找到下一个节点继续处理。fiber 结构就是为实现并发而准备的。<br>比如：针对上面两个setState同时触发的场景，如果第二个setStatek的优先级比较高的话：第一个setState触发的fiber节点变更会被打断，先执行第二个的fiber节点处理，完成之后再回来继续第一个。<br>并发是通过交替执行来实现的<br>上面是两个 setState 引起的两个渲染流程，先处理上面那次渲染的 1、2、3 的 fiber 节点，然后处理下面那次渲染的 1、2、3、4、5、6 的 fiber 节点，之后继续处理上面那次渲染的 4、5、6 的 fiber 节点。<br><strong>react的并发也就是在循环处理重新渲染涉及的fiber节点里多了个打断和恢复的机制</strong></p>
+<h3 id="打断与恢复机制的流程"><a href="#打断与恢复机制的流程" class="headerlink" title="打断与恢复机制的流程"></a>打断与恢复机制的流程</h3><h4 id="基于时间分片的机制实现调度"><a href="#基于时间分片的机制实现调度" class="headerlink" title="基于时间分片的机制实现调度"></a>基于时间分片的机制实现调度</h4><p>并发渲染机制的实现原理：时间分片</p>
+<h5 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h5><p>时间分片其实就是一个固定而连续且有间隔的时间区间<br>固定：每天固定工作8小时<br>连续：每天都要上班<br>有间隔：明天上班前会休息一段时间</p>
+<h5 id="为什么会出现时间分片"><a href="#为什么会出现时间分片" class="headerlink" title="为什么会出现时间分片"></a>为什么会出现时间分片</h5><p>JS是单线程的，浏览器是多线程的，除了JS线程还有事件处理线程以及定时器线程、网络请求线程、UI线程等，其中JS线程跟GUI渲线程是互斥的，因为如果操作dom的同时一边渲染会造成页面的错乱。<br>因为假如一个setState涉及到大量的dom节点变化，如果按照之前同步渲染的方式，需要将所有的dom节点更新都处理完成，就会导致Js线程一直被占用，GUI渲染线程被挂起，就会造成页面的卡断，所以引入了时间分片的机制，遍历一会，休闲一会，休息的时候将控制权交还给浏览器，这样就能及时响应用户事件避免造成卡顿</p>
+<h5 id="时间分片是怎么做的"><a href="#时间分片是怎么做的" class="headerlink" title="时间分片是怎么做的"></a>时间分片是怎么做的</h5><p>总结就是把一个耗时长的任务按照优先级排序分成很多小片，每一个小片的运行时间很短，这里的运行时间长短会根据任务的优先级进行调整 一般是5毫秒，如果超过这个规定的时间还没执行完成的话就会被打断，在每个小片执行完之后，当第一个小任务完成后，先判断这一帧是否还有空闲时间，没有就挂起下一个任务的执行，将其添加到宏任务，记住当前挂起的节点，让出控制权给浏览器执行更高优先级的任务，之后为什么还能找到这个挂起的节点呢？主要是得益于fiber 结构，否则继续执行下一个任务比如事件处理（用户输入用户点击等），。<br>这里的优先级react有自己的一套机制，比如一般是用户输入 点击事件的优先级更高，然后是滚动 拖拽 鼠标hover等<br>为什么这里是宏任务？<br>因为一轮事件循环，是先执行一个宏任务，然后再清空微任务队列里面的任务，如果在清空微任务队列的过程中，依然有新任务插入到微任务队列中的话，还是把这些任务执行完毕才会释放主线程。所以微任务会阻塞本次页面更新。而如果是宏任务，会将这个新增的宏任务丢到下一轮事件循环，不会阻塞本次的页面更新</p>
+<p><strong>上面所有的东西都是基于 fiber 架构实现的，fiber为状态更新提供了可中断的能力</strong></p>
+<h2 id="useDeferredValue"><a href="#useDeferredValue" class="headerlink" title="useDeferredValue"></a>useDeferredValue</h2><p>首先来看 React 18 新增的一个 API，useDeferredValue，它能够很好地展示并发渲染过程中的优先级调整特性。</p>
+<p>useDefferedValue 用于声明组件部分状态的处理是可以延迟的，一般是一些计算逻辑较重的部分，让组件可以先渲染其它部分而不用等待这部分状态计算完成，当这部分状态更新完后再进行渲染，从而让 UI 始终保持可响应。</p>
+<p>跟防抖的区别：跟防抖还是有比较大的区别的，那么不论机器快慢，网络情况如何，始终会在用户停止输入后的固定之间才执行。<br>使用场景：输入框搜索</p>
+<h3 id="与并发的关系"><a href="#与并发的关系" class="headerlink" title="与并发的关系"></a>与并发的关系</h3><p>该APi依赖于并发特性，并发特性指开启并发模式后才能使用的特性<br><img src="https://i.328888.xyz/2023/04/16/iEpVNa.png" alt="image"></p>
+<h2 id="Suspense"><a href="#Suspense" class="headerlink" title="Suspense"></a>Suspense</h2><p>Suspense 是一种数据获取的机制，它的目标是让组件能够像读取 props 或 state 一样简单地通过网络读取异步数据。这里的数据不仅限于接口返回数据，也可以是代码、图片等等<br>用处1：优先渲染用户点击的组件<br>有两个 Suspense 包裹的组件，如果用户点击其中一个，那么它的优先级会变高，React 会优先进行这部分的 hydration，让它能尽快可交互。<br>用处2：设置loading态</p>
+<h2 id="Render-API"><a href="#Render-API" class="headerlink" title="Render API"></a>Render API</h2><p>为了更好的管理root节点，React 18 引入了一个新的 root API，新的 root API 还支持 new concurrent renderer（并发模式的渲染），它允许你进入concurrent mode（并发模式）。</p>
+<h3 id="与之前的render的区别"><a href="#与之前的render的区别" class="headerlink" title="与之前的render的区别"></a>与之前的render的区别</h3><p>18之前<br>如果我们需要重新渲染整个根app的话 需要传递多次container</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.querySelector(<span class="string">'#root'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Initial render. Container is explicitly accessed.</span></span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> <span class="attr">text</span>=<span class="string">"Hello"</span> /&gt;</span>, container);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// Subsequent renders. Container is explicitly accessed.</span></span><br><span class="line">ReactDOM.render(&lt;App text="Hello world!" /&gt;, container);</span><br></pre></td></tr></table></figure>
+
+<p>18之后</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// First, we create a root</span></span><br><span class="line"><span class="keyword">const</span> root = ReactDOM.createRoot(<span class="built_in">document</span>.querySelector(<span class="string">'#root'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Initial render. Container is implicitly accessed.</span></span><br><span class="line">root.render(<span class="xml"><span class="tag">&lt;<span class="name">App</span> <span class="attr">name</span>=<span class="string">"Hello"</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// Subsequent renders. Container is implicitly accessed.</span></span><br><span class="line">root.render(&lt;App name="Hello world!" /&gt;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>useID<br>是什么<br>支持同一个组件在客户端和服务端生成相同的唯一的 ID，避免 hydration 的不兼容，这解决了在 React 17 及 17 以下版本中已经存在的问题。因为我们的服务器渲染时提供的 HTML 是无序的，useId 的原理就是每个 id 代表该组件在组件树中的层级结构</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">NameFields</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> id = useId();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;label htmlFor=&#123;id + <span class="string">'-firstName'</span>&#125;&gt;First Name&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;input id=&#123;id + '-firstName'&#125; type="text" /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;label htmlFor=&#123;id + '-lastName'&#125;&gt;Last Name&lt;/</span>label&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;input id=&#123;id + <span class="string">'-lastName'</span>&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意不能用于列表的key</p>
+<h2 id="setState-自动批处理"><a href="#setState-自动批处理" class="headerlink" title="setState 自动批处理"></a>setState 自动批处理</h2><p>批处理是指为了获得更好的性能，在数据层，将多个状态更新批量处理，合并成一次更新（在视图层，将多个渲染合并成一次渲染）。</p>
+<p>在React 18 之前，我们<strong>只在 React 事件处理函数 中进行批处理更新</strong>。默认情况下，在promise、setTimeout、原生事件处理函数中、或任何其它事件内的更新都不会进行批处理：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// React 18 之前</span></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'App组件渲染了！'</span>);</span><br><span class="line">  <span class="keyword">const</span> [count1, setCount1] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [count2, setCount2] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;button</span><br><span class="line">      onClick=&#123;<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        setCount1(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span><br><span class="line">        setCount2(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 在React事件中被批处理</span></span><br><span class="line">      &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &#123;<span class="string">`count1 is <span class="subst">$&#123;count1&#125;</span>, count2 is <span class="subst">$&#123;count2&#125;</span>`</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5a02ccce9b0a4b9e9170483617cdb087~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?" alt="image"></p>
+<p>在 18 之后，任何情况都会自动执行批处理，多次更新始终合并为一次</p>
+<h3 id="批处理与并发的关系"><a href="#批处理与并发的关系" class="headerlink" title="批处理与并发的关系"></a>批处理与并发的关系</h3><p><img src="https://i.328888.xyz/2023/04/16/iEpVNa.png" alt="image"></p>
+<h3 id="flushSync"><a href="#flushSync" class="headerlink" title="flushSync"></a>flushSync</h3><p>批处理是一个破坏性改动，如果你想退出批量更新，你可以使用 flushSync</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; flushSync &#125; <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App: React.FC = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [count1, setCount1] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> [count2, setCount2] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div</span><br><span class="line">      onClick=&#123;() =&gt; &#123;</span><br><span class="line">        flushSync(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          setCount1(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 第一次更新</span></span><br><span class="line">        flushSync(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          setCount2(<span class="function"><span class="params">count</span> =&gt;</span> count + <span class="number">1</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 第二次更新</span></span><br><span class="line">      &#125;&#125;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;div&gt;count1： &#123;count1&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;count2： &#123;count2&#125;&lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default App;</span></span><br></pre></td></tr></table></figure>
+
+<p>flushSync 函数内部的多个 setState 仍然为批量更新，这样可以精准控制哪些不需要的批量更新。</p>
+<h2 id="React-组件的返回值"><a href="#React-组件的返回值" class="headerlink" title="React 组件的返回值"></a>React 组件的返回值</h2><p>在 React 17 中，如果你需要返回一个空组件，React只允许返回null。如果你显式的返回了 undefined，控制台则会在运行时抛出一个错误。<br>在 React 18 中，不再检查因返回 undefined 而导致崩溃。既能返回 null，也能返回 undefined（但是 React 18 的dts文件还是会检查，只允许返回 null，你可以忽略这个类型错误）。</p>
+<h2 id="Suspense-不再需要-fallback-来捕获"><a href="#Suspense-不再需要-fallback-来捕获" class="headerlink" title="Suspense 不再需要 fallback 来捕获"></a>Suspense 不再需要 fallback 来捕获</h2><p>在 React 18 的 Suspense 组件中，官方对 空的fallback 属性的处理方式做了改变：不再跳过 缺失值 或 值为null 的 fallback 的 Suspense 边界。相反，会捕获边界并且向外层查找，如果查找不到，将会把 fallback 呈现为 null。<br>更新前：<br>以前，如果你的 Suspense 组件没有提供 fallback 属性，React 就会悄悄跳过它，继续向上搜索下一个边界：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// React 17</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Suspense fallback=&#123;&lt;Loading /&gt;&#125;&gt; <span class="comment">// &lt;--- 这个边界被使用，显示 Loading 组件</span></span><br><span class="line">      &lt;Suspense&gt;                      <span class="comment">// &lt;--- 这个边界被跳过，没有 fallback 属性</span></span><br><span class="line">        &lt;Page /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Suspense&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Suspense&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<p>现在，React将使用当前组件的 Suspense 作为边界，即使当前组件的 Suspense 的值为 null 或 undefined：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// React 18</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Suspense fallback=&#123;&lt;Loading /&gt;&#125;&gt; <span class="comment">// &lt;--- 不使用</span></span><br><span class="line">      &lt;Suspense&gt;                      <span class="comment">// &lt;--- 这个边界被使用，将 fallback 渲染为 null</span></span><br><span class="line">        &lt;Page /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Suspense&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Suspense&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><img src="https://juejin.cn/post/7094037148088664078#heading-23" alt="React18 新特性解读 &amp; 完整版升级指南"></p>
+
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T16:10:47+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>updated at Apr 16, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://ashleyblog.xyz/2022/08/16/react18/&title=react18新特性解读 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ashleyblog.xyz/2022/08/16/react18/&title=react18新特性解读 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://ashleyblog.xyz/2022/08/16/react18/&title=react18新特性解读 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2022/08/23/升级Babel7踩坑/" rel="prev" title="升级Babel7踩坑">
+                                  
+                                      升级Babel7踩坑
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/babel/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>babel</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2022/08/16/extension/" rel="prev" title="hello，chrome extension">
+                                    
+                                        hello，chrome extension
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/chromeExtension/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>chromeExtension</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'react18新特性解读',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/ashley271017.github.io/images/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        <!-- 
+          
+            <a href="https://github.com/earnest1997"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+         -->
+        失落，是因为你总在跟别人比较
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#并发"><span class="toc-text">并发</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是并发"><span class="toc-text">什么是并发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#并发渲染机制"><span class="toc-text">并发渲染机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何开启"><span class="toc-text">如何开启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么会出现这么一套机制"><span class="toc-text">为什么会出现这么一套机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打断与恢复机制的流程"><span class="toc-text">打断与恢复机制的流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于时间分片的机制实现调度"><span class="toc-text">基于时间分片的机制实现调度</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#是什么"><span class="toc-text">是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#为什么会出现时间分片"><span class="toc-text">为什么会出现时间分片</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#时间分片是怎么做的"><span class="toc-text">时间分片是怎么做的</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#useDeferredValue"><span class="toc-text">useDeferredValue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与并发的关系"><span class="toc-text">与并发的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Suspense"><span class="toc-text">Suspense</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Render-API"><span class="toc-text">Render API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#与之前的render的区别"><span class="toc-text">与之前的render的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setState-自动批处理"><span class="toc-text">setState 自动批处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#批处理与并发的关系"><span class="toc-text">批处理与并发的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flushSync"><span class="toc-text">flushSync</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-组件的返回值"><span class="toc-text">React 组件的返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Suspense-不再需要-fallback-来捕获"><span class="toc-text">Suspense 不再需要 fallback 来捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/" href="/ashley271017.github.io/"
+          
+          
+          id="ashley271017.github.io">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/friends/" href="/ashley271017.github.io/friends/"
+          
+            rel="nofollow"
+          
+          
+          id="ashley271017.github.iofriends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/category/"
+    title="blog/category/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/sass/" href="/ashley271017.github.io/categories/sass/"><div class='name'>sass</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/ts/" href="/ashley271017.github.io/categories/ts/"><div class='name'>ts</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/性能优化/" href="/ashley271017.github.io/categories/性能优化/"><div class='name'>性能优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/成长/" href="/ashley271017.github.io/categories/成长/"><div class='name'>成长</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/配置/" href="/ashley271017.github.io/categories/配置/"><div class='name'>配置</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面经/" href="/ashley271017.github.io/categories/面经/"><div class='name'>面经</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/css/" href="/ashley271017.github.io/categories/面经/css/"><div class='name'>css</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/js/" href="/ashley271017.github.io/categories/面经/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面经/浏览器/" href="/ashley271017.github.io/categories/面经/浏览器/"><div class='name'>浏览器</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/面试/" href="/ashley271017.github.io/categories/面试/"><div class='name'>面试</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/面试/js/" href="/ashley271017.github.io/categories/面试/js/"><div class='name'>js</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/tags/"
+    title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 20.67px; color: #6c6c6c">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20.67px; color: #6c6c6c">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 17.33px; color: #828282">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="https://github.com/earnest1997"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+</div>
+  <div>
+    联系方式：ashley19971212@gmail.com
+    <!-- 
+      , 
+      总浏览量
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+     -->
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/ashley271017.github.io/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0.5/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "vu5VJ9hGtTUPkCsBP1ItVzg9-gzGzoHsz",
+    appKey: "HfSu2jw0KjCyYYMydHTCArO2",
+    placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script>if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js?t=1681636263995')
+    .then(function () {console.log('ServiceWorker Register Successfully.')})
+    .catch(function (e) {console.error(e)});
+}
+</script></body>
+</html>

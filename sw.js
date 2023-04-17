@@ -24,15 +24,15 @@ var precacheUrls = [];
 
   precacheUrls.push('/');
 
-  precacheUrls.push('/2019/12/10/2019年度总结/');
-
   precacheUrls.push('/2021/04/16/Vue2和Vue3区别/');
-
-  precacheUrls.push('/2019/10/17/css中宽高的新值复习/');
 
   precacheUrls.push('/2023/03/15/debug记录/');
 
-  precacheUrls.push('/2023/01/21/hooks/');
+  precacheUrls.push('/2019/10/17/css中宽高的新值复习/');
+
+  precacheUrls.push('/2019/12/10/2019年度总结/');
+
+  precacheUrls.push('/2022/08/16/extension/');
 
 toolbox.precache(precacheUrls);
 toolbox.options = {"networkTimeoutSeconds":5};

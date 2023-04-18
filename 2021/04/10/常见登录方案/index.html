@@ -295,7 +295,7 @@
         
       </div>
       
-        <a title='常见登录方案' href='/ashley271017.github.io/2021/04/10/常见登录方案/'><img class='thumbnail' src='https://img1.baidu.com/it/u=2914481781,2222498334&fm=253&fmt=auto&app=138&f=JPEG?w=891&h=500'></a>
+        <a title='常见登录方案' href='/ashley271017.github.io/2021/04/10/常见登录方案/'><img class='thumbnail' src='https://bougiel.github.io/images/2019/05/02/EtjGbq.png'></a>
       
       
         <hr>
@@ -306,12 +306,51 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>Session 是一种存储在服务器上的数据结构，用于存储有关用户的信息。Session 数据存储在服务器上，因此比 Cookie 更加安全。Session 通常使用 Cookie 来跟踪用户会话</p>
-<h3 id="session机制"><a href="#session机制" class="headerlink" title="session机制"></a>session机制</h3><p>当服务器收到请求需要创建session对象时，首先会检查客户端请求中是否包含sessionid。如果有sessionid，服务器将根据该id返回对应session对象。如果客户端请求中没有sessionid，服务器会创建新的session对象，并把sessionid在本次响应中返回给客户端。通常使用cookie方式存储sessionid到客户端，在交互中浏览器按照规则将sessionid发送给服务器。服务器按照该session ID查找对应的session信息如果没找到说明没登录或者登陆失效<br>如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将SessionID拼接到访问地址后。<br>session的优势<br>相较于 cookie 来说，session 存储在服务端，客户端仅保留换取 session 的用户凭证。因此传输数据量小，速度快。session 更安全：检验、生成、验证都是在服务端按照指定规则完成，而 cookie 可能被客户端通过 js 代码篡改。</p>
-<h3 id="session-的劣势"><a href="#session-的劣势" class="headerlink" title="session 的劣势"></a>session 的劣势</h3><ul>
-<li>服务器是有状态的。多台后端服务器无法共享 session。**解决方法是，专门准备一台 session 服务器，关于 session 的所有操作都交给它来调用。而服务器之间的调用，可以走内网 ip，走 RPC 调用（后端之间的接口请求，前端不能请求）（不走 http）。</li>
-<li>Session 一般失效时间较短，客户端关闭（默认情况下）或者 Session 超时都会失效。</li>
-<li>由于存放在cookie中，需要防止CSRF攻击<br>解决方案：<br>○ 阻止不明外域的访问，同源检测（检查referer、origin）、限制第三方cookie（samesite=lax)<br>○ 请求提交时附加CSRF token（只要token不放在cookie里，攻击者无法伪造，并且页面没有XSS漏洞泄漏token，CSRF就无法成功）</li>
+          <h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><h3 id="cookie有哪些属性"><a href="#cookie有哪些属性" class="headerlink" title="cookie有哪些属性"></a>cookie有哪些属性</h3><ul>
+<li><p>Expires<br>过期时间，是客户端的过期时间，到时间会被删除</p>
+</li>
+<li><p>Max-Age<br>cookie 的有效时间长度，单位为秒。通过设置小于等于 0 的数字，可以让一个 cookie 失效。</p>
+</li>
+</ul>
+<p>如果 Max-Age 和 Expires 同时存在，以 Max-Age 为准。</p>
+<ul>
+<li>Path<br>我们以上面示例为例，浏览器会将名为 lang 的 cookie 保存到当前域名下。但之后请求时，会判断路径是否匹配 /user，来决定是否带上 cookie。</li>
+</ul>
+<p>/ ：不会带上名为 lang 的 cookie<br>/user：会带上<br>/user/1：会带上<br>/user2：不会带上</p>
+<ul>
+<li>Domain</li>
+</ul>
+<p>设置 cookie 的 domain 作用域。</p>
+<p>在不提供该属性的情况下，会使用请求时的 domian，比如 <a href="http://www.a.com/api/v1/books" target="_blank" rel="noopener">http://www.a.com/api/v1/books</a> 不设置 Domain 时，拿到的 cookie 的 Domain 属性会被设置为 <a href="http://www.a.com" target="_blank" rel="noopener">www.a.com</a> 。</p>
+<p>通常我们会省略掉 Domain 属性。</p>
+<p>但在希望多个子域名共享 cookie 的场景下，比如 sub1.a.com 和 sub2.a.com（或者再加上父域名 a.com），就需要显式将其设置为 .a.com。开头的小圆点可写可不写，都一样。</p>
+<p>如果 Domain 不能覆盖当前域名，该 cookie 会被认定为无效，然后被丢弃掉。</p>
+<ul>
+<li>Secure</li>
+</ul>
+<p>请求必须为安全连接（HTTPS），cookie 才会被保存下来。HTTP 协议下，cookie 无效。</p>
+<ul>
+<li><p>samesite</p>
+<ul>
+<li><p>strict：严格模式，完全禁止使用Cookie：浏览器会完全禁止第三方 Cookie。简言之，如果你从极客时间的页面中访问 InfoQ 的资源，而 InfoQ 的某些 Cookie 设置了 SameSite = Strict 的话，那么这些 Cookie 是不会被发送到 InfoQ 的服务器上的。只有你从 InfoQ 的站点去请求 InfoQ 的资源时，才会带上这些 Cookie。</p>
+<ul>
+<li>lax：宽松模式，允许部分情况使用Cookie，跨域的都行，a标签跳转，link标签，GET提交表单：从第三方站点的链接打开和从第三方站点提交 Get 方式的表单这两种方式都会携带 Cookie。<strong>但如果在第三方站点中使用 Post 方法，或者通过 img、iframe 等标签加载的 URL，这些场景都不会携带 Cookie。</strong><br>比如：从 ​​time.geekbang.org​​ 的页面中，通过a标签打开页面，如下所示：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"https://www.infoq.cn/sendcoin?user=hacker&amp;number=100"</span>&gt;</span>点我下载<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>当用户点击整个链接的时候，因为InfoQ中a_vaule(infoQ的cookie)的SameSite的值设置成了strict，那么a_vaule的值将不会被携带到这个请求的HTTP头中。</p>
+<ul>
+<li>none：任何情况下都会发送Cookie，但必须同时设置Secure属性，意思是需要安全上下文，Cookie 只能通过https发送，否则无效<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2>Session 是一种存储在服务器上的数据结构，用于存储有关用户的信息。Session 数据存储在服务器上，因此比 Cookie 更加安全。Session 通常使用 Cookie 来跟踪用户会话<h3 id="session机制"><a href="#session机制" class="headerlink" title="session机制"></a>session机制</h3>当服务器收到请求需要创建session对象时，首先会检查客户端请求中是否包含sessionid。如果有sessionid，服务器将根据该id返回对应session对象。如果客户端请求中没有sessionid，服务器会创建新的session对象，并把sessionid在本次响应中返回给客户端。通常使用cookie方式存储sessionid到客户端，在交互中浏览器按照规则将sessionid发送给服务器。服务器按照该session ID查找对应的session信息如果没找到说明没登录或者登陆失效<br>如果用户禁用cookie，则要使用URL重写，可以通过response.encodeURL(url) 进行实现；API对encodeURL的结束为，当浏览器支持Cookie时，url不做任何处理；当浏览器不支持Cookie的时候，将会重写URL将SessionID拼接到访问地址后。<br>session的优势<br>相较于 cookie 来说，session 存储在服务端，客户端仅保留换取 session 的用户凭证。因此传输数据量小，速度快。session 更安全：检验、生成、验证都是在服务端按照指定规则完成，而 cookie 可能被客户端通过 js 代码篡改。<h3 id="session-的劣势"><a href="#session-的劣势" class="headerlink" title="session 的劣势"></a>session 的劣势</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>服务器是有状态的。多台后端服务器无法共享 session。**解决方法是，专门准备一台 session 服务器，关于 session 的所有操作都交给它来调用。而服务器之间的调用，可以走内网 ip，走 RPC 调用（后端之间的接口请求，前端不能请求）（不走 http）。</p>
+</li>
+<li><p>Session 一般失效时间较短，客户端关闭（默认情况下）或者 Session 超时都会失效。</p>
+</li>
+<li><p>由于存放在cookie中，需要防止CSRF攻击<br>解决方案：<br>○ 阻止不明外域的访问，同源检测（检查referer、origin）、限制第三方cookie（samesite=lax)<br>○ 请求提交时附加CSRF token（只要token不放在cookie里，攻击者无法伪造，并且页面没有XSS漏洞泄漏token，CSRF就无法成功）</p>
+</li>
 </ul>
 <h3 id="session与cookie的区别"><a href="#session与cookie的区别" class="headerlink" title="session与cookie的区别"></a>session与cookie的区别</h3><ul>
 <li>作用范围不同，Cookie 保存在客户端(浏览器)，Session 保存在服务器端。</li>
@@ -356,10 +395,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:23:42+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-18T14:44:34+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 16, 2023</p>
+    <p>updated at Apr 18, 2023</p>
   </a>
 </div>
 
@@ -453,16 +492,16 @@
                         <span class="art-item-right" aria-hidden="true">
                             <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/ashley271017.github.io/2020/04/16/常见的攻击方式/" rel="prev" title="常见的攻击方式">
+                                <a href="/ashley271017.github.io/2021/03/17/webpack按需加载模块原理/" rel="prev" title="webpack按需加载模块原理">
                                     
-                                        常见的攻击方式
+                                        webpack按需加载模块原理
                                     
                                 </a>
                             </h4>
                             
                                 
                                 <h6 class="tags">
-                                    <a class="tag" href="/ashley271017.github.io/tags/浏览器安全/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>浏览器安全</a>
+                                    <a class="tag" href="/ashley271017.github.io/tags/webpack/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>webpack</a>
                                 </h6>
                             
                         </span>
@@ -564,7 +603,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-text">session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#session机制"><span class="toc-text">session机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session-的劣势"><span class="toc-text">session 的劣势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session与cookie的区别"><span class="toc-text">session与cookie的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-如何实现退出登录呢？"><span class="toc-text">Session 如何实现退出登录呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session的缺点"><span class="toc-text">session的缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT-Token"><span class="toc-text">JWT Token</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是jwt-token"><span class="toc-text">什么是jwt token</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#流程"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt的生成过程"><span class="toc-text">jwt的生成过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt如何防止被篡改"><span class="toc-text">jwt如何防止被篡改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt如何退出登录"><span class="toc-text">jwt如何退出登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt存储在客户端如何防止未退出登录的时候被劫持"><span class="toc-text">jwt存储在客户端如何防止未退出登录的时候被劫持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何实现无感刷新？"><span class="toc-text">如何实现无感刷新？</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cookie"><span class="toc-text">cookie</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cookie有哪些属性"><span class="toc-text">cookie有哪些属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-text">session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#session机制"><span class="toc-text">session机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session-的劣势"><span class="toc-text">session 的劣势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session与cookie的区别"><span class="toc-text">session与cookie的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Session-如何实现退出登录呢？"><span class="toc-text">Session 如何实现退出登录呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session的缺点"><span class="toc-text">session的缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT-Token"><span class="toc-text">JWT Token</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是jwt-token"><span class="toc-text">什么是jwt token</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#流程"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt的生成过程"><span class="toc-text">jwt的生成过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt如何防止被篡改"><span class="toc-text">jwt如何防止被篡改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt如何退出登录"><span class="toc-text">jwt如何退出登录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt存储在客户端如何防止未退出登录的时候被劫持"><span class="toc-text">jwt存储在客户端如何防止未退出登录的时候被劫持</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何实现无感刷新？"><span class="toc-text">如何实现无感刷新？</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
@@ -688,7 +727,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 19px; color: #777">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 18px; color: #7e7e7e">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20px; color: #707070">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 22px; color: #636363">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 16px; color: #8b8b8b">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -727,7 +766,7 @@
     </div>
   
   <br>
-  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+  <div><p>Ashley © 2019-2023 鄂ICP备17030443号</p>
 </div>
   <div>
     联系方式：ashley19971212@gmail.com
@@ -981,7 +1020,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681698615758')
+  navigator.serviceWorker.register('/sw.js?t=1681803166468')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

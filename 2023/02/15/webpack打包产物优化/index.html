@@ -295,7 +295,7 @@
         
       </div>
       
-        <a title='webpack打包产物优化' href='/ashley271017.github.io/2023/02/15/webpack打包产物优化/'><img class='thumbnail' src='https://img1.baidu.com/it/u=2914481781,2222498334&fm=253&fmt=auto&app=138&f=JPEG?w=891&h=500'></a>
+        <a title='webpack打包产物优化' href='/ashley271017.github.io/2023/02/15/webpack打包产物优化/'><img class='thumbnail' src='https://bougiel.github.io/images/2019/05/02/EtjGbq.png'></a>
       
       
         <hr>
@@ -319,6 +319,9 @@
 
 <h4 id="提取公共代码"><a href="#提取公共代码" class="headerlink" title="提取公共代码"></a>提取公共代码</h4><p>在<code>optimization</code>中配置<code>splitChunks</code>属性，设置<code>cacheGroups</code>分组，一般分为两个组：<code>verdors</code>（用于提取第三方库）和<code>common</code>（用于提取自定义的公共模块）<br>针对第三方库，几乎不会改变，提取出来后，改动业务代码不会动到第三方库的打包文件，这样，就能命中缓存，加快加载速度<br>针对公共模块，只用加载一次，就可以在多个模块中使用</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.prod.js</span></span><br><span class="line">  optimization: &#123;</span><br><span class="line">    splitChunks: &#123;</span><br><span class="line">      chunks: <span class="string">'all'</span>, <span class="comment">// 表示要分割的chunk类型：initial只处理同步的; async只处理异步的；all都处理</span></span><br><span class="line">      <span class="comment">// 缓存分组</span></span><br><span class="line">      cacheGroups: &#123;</span><br><span class="line">        <span class="comment">// 第三方模块</span></span><br><span class="line">        verdors: &#123;</span><br><span class="line">          name: <span class="string">'verdor'</span>, <span class="comment">// chunk名称</span></span><br><span class="line">          test: <span class="regexp">/node_modules/</span>,  <span class="comment">// 设置命中目录规则</span></span><br><span class="line">          priority: <span class="number">1</span>, <span class="comment">// 优先级，数值越大，优先级越高</span></span><br><span class="line">          minSize: <span class="number">0</span>, <span class="comment">// 小于这个大小的文件，不分割</span></span><br><span class="line">          minChunks: <span class="number">1</span> <span class="comment">// 最少复用几次，这里意思是只要用过一次就分割出来</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 公共模块</span></span><br><span class="line">        common: &#123;</span><br><span class="line">          name: <span class="string">'common'</span>,</span><br><span class="line">          minChunks: <span class="number">2</span>,</span><br><span class="line">          priority: <span class="number">0</span>,</span><br><span class="line">          minSize: <span class="number">0</span>,</span><br><span class="line">          minChunks: <span class="number">2</span>  <span class="comment">// 只要引用过2次，就分割成公共代码</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>npm包都拆出来了，这么多并发请求量会有影响吗：开启http2的时候没影响<br>拆分的越多越好吗？拆分的越多的话会失去代码压缩的优势，因为会生成更多的webpack样板代码,但是不一定会影响加载总时间，在http2下可能会比只有一个文件更快</p>
+<h4 id="基于路由的动态加载（React-独占）"><a href="#基于路由的动态加载（React-独占）" class="headerlink" title="基于路由的动态加载（React 独占）"></a>基于路由的动态加载（React 独占）</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">React.lazy(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./mobile/app'</span>))</span><br></pre></td></tr></table></figure>
 
 <h4 id="忽略某些库不需要的模块"><a href="#忽略某些库不需要的模块" class="headerlink" title="忽略某些库不需要的模块"></a>忽略某些库不需要的模块</h4><p>比如国际化项目所有地区语言包都会与核心库一起打包，如果我们只要少数几种语言，可以使用<code>IgnorePlugin</code>忽略掉一些地区语言包,</p>
 <h4 id="http请求优化"><a href="#http请求优化" class="headerlink" title="http请求优化"></a>http请求优化</h4><ul>
@@ -353,10 +356,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-16T11:32:43+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-18T14:44:34+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 16, 2023</p>
+    <p>updated at Apr 18, 2023</p>
   </a>
 </div>
 
@@ -561,7 +564,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#减少体积"><span class="toc-text">减少体积</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是tree-shaking？"><span class="toc-text">什么是tree shaking？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#减少Babel编译后的产物体积"><span class="toc-text">减少Babel编译后的产物体积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按需加载"><span class="toc-text">按需加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提取公共代码"><span class="toc-text">提取公共代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#忽略某些库不需要的模块"><span class="toc-text">忽略某些库不需要的模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#http请求优化"><span class="toc-text">http请求优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#充分利用缓存"><span class="toc-text">充分利用缓存</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#减少体积"><span class="toc-text">减少体积</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是tree-shaking？"><span class="toc-text">什么是tree shaking？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#减少Babel编译后的产物体积"><span class="toc-text">减少Babel编译后的产物体积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按需加载"><span class="toc-text">按需加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提取公共代码"><span class="toc-text">提取公共代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于路由的动态加载（React-独占）"><span class="toc-text">基于路由的动态加载（React 独占）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#忽略某些库不需要的模块"><span class="toc-text">忽略某些库不需要的模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#http请求优化"><span class="toc-text">http请求优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#充分利用缓存"><span class="toc-text">充分利用缓存</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -685,7 +688,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 19px; color: #777">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 14px; color: #999">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 18px; color: #7e7e7e">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/js/" style="font-size: 14px; color: #999">js</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20px; color: #707070">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 22px; color: #636363">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 16px; color: #8b8b8b">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 14px; color: #999">面经</a>
     </div>
   </section>
 
@@ -724,7 +727,7 @@
     </div>
   
   <br>
-  <div><p>Ashley © 2018-2023 鄂ICP备17030443号</p>
+  <div><p>Ashley © 2019-2023 鄂ICP备17030443号</p>
 </div>
   <div>
     联系方式：ashley19971212@gmail.com
@@ -978,7 +981,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681698615758')
+  navigator.serviceWorker.register('/sw.js?t=1681803166468')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

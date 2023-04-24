@@ -304,7 +304,8 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><h3 id="什么是并发"><a href="#什么是并发" class="headerlink" title="什么是并发"></a>什么是并发</h3><p>并发是只要一段时间内同时发生多件事情就行。</p>
+          <h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>这里的并发主要是指的并发渲染</p>
+<h3 id="什么是并发"><a href="#什么是并发" class="headerlink" title="什么是并发"></a>什么是并发</h3><p>并发是只要一段时间内同时发生多件事情就行。</p>
 <h3 id="并发渲染机制"><a href="#并发渲染机制" class="headerlink" title="并发渲染机制"></a>并发渲染机制</h3><p><del>react18为优化性能做的基于优先级的可打断的渲染流程。主要目标是根据用户的设备性能和网速对渲染过程进行适当的调整，帮助应用始终保持可响应，也就是说它能够保证 React 应用在长时间的渲染过程中依旧保持可交互性，能优先执行高优先级变更，避免页面出现卡顿或无响应的情况，从而提升用户体验。</del></p>
 <p>Fiber 树的更新流程分为 render 阶段与 commit 阶段，render 阶段会收集 Fiber 树中需要更新的部分，代表着对于本次更新，我们需要做哪些具体变更。commit 阶段是将变更应用到真实的宿主环境中</p>
 <p>render 阶段是没有副作用的（只是收集 Fiber 树中需要更新的部分），意味着可以被拆分，在阻塞模式下，render 阶段一次性执行完成，<strong>而在并发渲染模式下，render 阶段可以被拆解</strong></p>
@@ -388,10 +389,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-21T10:48:17+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-24T19:29:56+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 21, 2023</p>
+    <p>updated at Apr 24, 2023</p>
   </a>
 </div>
 
@@ -1007,7 +1008,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1682305223893')
+  navigator.serviceWorker.register('/sw.js?t=1682340578926')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

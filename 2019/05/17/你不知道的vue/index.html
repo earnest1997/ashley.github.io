@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>你不知道的vue | Ashley&#39;s blog</title>
+  <title>你不知道的vue（上） | Ashley&#39;s blog</title>
   
   
 
@@ -230,7 +230,7 @@
   
     <h1 class="title">
       <a href="/ashley271017.github.io/2019/05/17/你不知道的vue/">
-        你不知道的vue
+        你不知道的vue（上）
       </a>
     </h1>
   
@@ -244,7 +244,7 @@
           
             
   <div class='new-meta-item author'>
-    <a href="https://ashleyblog.xyz" rel="nofollow">
+    <a href="https://earnest1997.github.io/ashley271017.github.io" rel="nofollow">
       
         <i class="fas fa-user" aria-hidden="true"></i>
       
@@ -295,7 +295,7 @@
         
       </div>
       
-        <a title='你不知道的vue' href='/ashley271017.github.io/2019/05/17/你不知道的vue/'><img class='thumbnail' src='https://img1.baidu.com/it/u=3840666260,829403703&fm=253&fmt=auto&app=138&f=JPEG?w=1000&h=500'></a>
+        <a title='你不知道的vue（上）' href='/ashley271017.github.io/2019/05/17/你不知道的vue/'><img class='thumbnail' src='https://img1.baidu.com/it/u=3840666260,829403703&fm=253&fmt=auto&app=138&f=JPEG?w=1000&h=500'></a>
       
       
         <hr>
@@ -330,6 +330,69 @@
 <p>render做的事情：<br>首先通过<code>getFirstComponentChild</code>获取第一个子组件，获取该组件的name（存在组件名则直接使用组件名，否则会使用tag）。接下来会将这个name通过include与exclude属性进行匹配，匹配不成功（说明不需要进行缓存）则不进行任何操作直接返回vnode，vnode是一个VNode类型的对象</p>
 <p>Vue.js内部将DOM节点抽象成了一个个的VNode节点，<strong>keep-alive组件的缓存也是基于VNode节点的而不是直接存储DOM结构</strong>。它将满足条件（pruneCache与pruneCache）的组件在cache对象中缓存起来，在需要重新渲染的时候再将vnode节点从cache对象中取出并渲染。</p>
 <p>当同时使用include和exclude的时候，exclude的优先级会更高，include就不生效</p>
+<h3 id="keep-alive如何做动态缓存？"><a href="#keep-alive如何做动态缓存？" class="headerlink" title="keep-alive如何做动态缓存？"></a>keep-alive如何做动态缓存？</h3><p>比如详情页返回列表页，列表需要缓存，首页直接进入列表页不需要</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 动态定义include --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">keep-alive</span> <span class="attr">:include</span>=<span class="string">"include"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">v-if</span>=<span class="string">"$route.meta.keepAlive"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">v-if</span>=<span class="string">"!$route.meta.keepAlive"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 实时监听路由 修改include --&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      include: []</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    $route(to, <span class="keyword">from</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果要to(进入)的页面是需要keepAlive缓存的，把name push进include数组中</span></span><br><span class="line">      <span class="keyword">if</span> (to.meta.keepAlive) &#123;</span><br><span class="line">        !<span class="keyword">this</span>.include.includes(to.name) &amp;&amp; <span class="keyword">this</span>.include.push(to.name);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 如果 要 form(离开) 的页面是 keepAlive缓存的，</span></span><br><span class="line">      <span class="comment">// 再根据 deepth 来判断是前进还是后退</span></span><br><span class="line">      <span class="comment">// 如果是后退：</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">from</span>.meta.keepAlive &amp;&amp; to.meta.deepth &lt; <span class="keyword">from</span>.meta.deepth) &#123;</span><br><span class="line">        <span class="keyword">const</span> index = <span class="keyword">this</span>.include.indexOf(<span class="keyword">from</span>.name);</span><br><span class="line">        index !== <span class="number">-1</span> &amp;&amp; <span class="keyword">this</span>.include.splice(index, <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>可以根据from信息得知是从哪一个页面跳转过来的，同时更新<code>include</code></p>
+<h2 id="vue复用方式"><a href="#vue复用方式" class="headerlink" title="vue复用方式"></a>vue复用方式</h2><h3 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h3><ul>
+<li>普通mixin<br>当组件和混入对象含有同名选项时，这些选项将以恰当的方式进行“合并”。</li>
+</ul>
+<p>比如，数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      message: <span class="string">'hello'</span>,</span><br><span class="line">      foo: <span class="string">'abc'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  mixins: [mixin],</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      message: <span class="string">'goodbye'</span>,</span><br><span class="line">      bar: <span class="string">'def'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.$data)</span><br><span class="line">    <span class="comment">// =&gt; &#123; message: "goodbye", foo: "abc", bar: "def" &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>同名钩子函数将合并为一个数组，因此都将被调用。另外，mixin的钩子将在组件自身钩子之前调用。<br>值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，<strong>取组件对象的键值对</strong>。</p>
+<ul>
+<li>全局mixin<br>一旦使用全局混入，它将影响每一个之后创建的 Vue 实例。使用恰当时，这可以用来为自定义选项注入处理逻辑<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Vue.mixin(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> myOption = <span class="keyword">this</span>.$options.myOption</span><br><span class="line">    <span class="keyword">if</span> (myOption) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(myOption)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  myOption: <span class="string">'hello!'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="mixin原理"><a href="#mixin原理" class="headerlink" title="mixin原理"></a>mixin原理</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// init.js</span></span><br><span class="line">Vue.prototype._init = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> vm = <span class="keyword">this</span>;  </span><br><span class="line">  <span class="comment">// vm.constructor === Vue ~ vm实例的构造函数是Vue  </span></span><br><span class="line">  vm.$options = mergeOptions(vm.constructor.options, options); <span class="comment">// 后面会对options进行扩展操作</span></span><br><span class="line">  <span class="comment">// 对数据进行初始化 watch computed props data ...</span></span><br><span class="line">  initState(vm); <span class="comment">// vm.$options.data  数据劫持</span></span><br><span class="line">  <span class="keyword">if</span> (vm.$options.el) &#123;</span><br><span class="line">      <span class="comment">// 将数据挂载到这个模板上</span></span><br><span class="line">      vm.$mount(vm.$options.el);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// global-api/mixin.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; mergeOptions &#125; <span class="keyword">from</span> <span class="string">'../util/index'</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initMixin</span> (<span class="params">Vue</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 创建一个严格空对象，可以理解为&#123;&#125;</span></span><br><span class="line"><span class="comment">//   你需要一个非常干净且高度可定制的对象当作数据字典的时候；</span></span><br><span class="line"><span class="comment">// 想节省hasOwnProperty带来的一丢丢性能损失并且可以偷懒少些一点代码的时候</span></span><br><span class="line">  Vue.options = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line">  <span class="comment">// 用来存所有vue子类的初始构造函数大Vue</span></span><br><span class="line">  Vue.options._base = Vue;</span><br><span class="line">  </span><br><span class="line">  Vue.mixin = <span class="function"><span class="keyword">function</span> (<span class="params">mixinOptions</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 将属性合并到Vue.options上</span></span><br><span class="line">    <span class="comment">// 这里的this是，谁调用它就指向谁，那么往上看两个例子，Vue.mixin(xxx)，所以这里指向的是大Vue</span></span><br><span class="line">    <span class="keyword">this</span>.options = mergeOptions(<span class="keyword">this</span>.options, mixinOptions)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="this-set"><a href="#this-set" class="headerlink" title="this.$set"></a>this.$set</h3><p>是干嘛的？<br>如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    student: &#123;</span><br><span class="line">      name: <span class="string">''</span>,</span><br><span class="line">      sex: <span class="string">''</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">mounted () &#123; <span class="comment">// ——钩子函数，实例挂载之后</span></span><br><span class="line">  <span class="keyword">this</span>.student.age = <span class="number">24</span> <span class="comment">// 无用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么？<br>Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</p>
+<p>怎么解决？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mounted () &#123;</span><br><span class="line">  <span class="keyword">this</span>.$<span class="keyword">set</span>(this.student,"age", 24)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="vue-set"><a href="#vue-set" class="headerlink" title="vue.set"></a>vue.set</h4><p><code>Vue.set(object, propertyName, value)</code> 方法向嵌套对象添加响应式属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm=<span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el:<span class="string">'#test'</span>,</span><br><span class="line">    data:&#123;</span><br><span class="line">        <span class="comment">//data中已经存在info根属性</span></span><br><span class="line">        info:&#123;</span><br><span class="line">            name:<span class="string">'小明'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//给info添加一个性别属性</span></span><br><span class="line">Vue.set(vm.info,<span class="string">'sex'</span>,<span class="string">'男'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="set方法的实现"><a href="#set方法的实现" class="headerlink" title="set方法的实现"></a>set方法的实现</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$<span class="keyword">set</span>(target,key,value)&#123;</span><br><span class="line">        <span class="comment">//新增的属性也变成响应式的</span></span><br><span class="line">        defineReactive(target,key,value)</span><br><span class="line">        <span class="comment">//执行</span></span><br><span class="line">        target.__ob__.dep.notify()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h2><p><img src="https://segmentfault.com/img/bV4xju?w=1200&h=3039" alt="image"></p>
+<ol>
+<li><p>beforeCreate 这个时候初始化了vue实例，</p>
+</li>
+<li><p>created:在这个阶段会完成数据观测、方法与属性的计算以及watch、event事件回调的配置<br><code>el</code>,<code>template</code>选项的优先级？<br>当created完成之后，它会去判断instance（实例）里面是否含有“el”option（选项），如果没有的话，它会调用vm.$mount(el)这个方法，然后执行下一步；如果有的话，直接执行下一步。紧接着会判断是否含有“template”这个选项，如果有的话，它会把template解析成一个render function ，这是一个template编译的过程，结果是解析成了render函数：</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">render (h) &#123;</span><br><span class="line">  <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;&#125;, <span class="keyword">this</span>.text)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="render-h-中的h"><a href="#render-h-中的h" class="headerlink" title="render(h)中的h?"></a>render(h)中的h?</h3><p>render函数里面的传参h就是Vue里面的createElement方法，return返回一个createElement方法，其中要传3个参数，第一个参数就是创建的div标签；第二个参数传了一个对象，对象里面可以是我们组件上面的props，或者是事件之类的东西；第三个参数就是div标签里面的内容，这里我们指向了data里面的text。</p>
+<p>使用render函数的结果和我们之前使用template解析出来的结果是一样的。render函数是发生在beforeMount和mounted之间的，这也从侧面说明了，<code>在beforeMount的时候，$el还只是我们在HTML里面写的节点，然后到mounted的时候，它就把渲染出来的内容挂载到了DOM节点上</code>。这中间的过程其实是执行了render function的内容。</p>
+<ol start="3">
+<li><p>beforeMount:beforeMount在有了render function(vue-loader会将template变成render function)的时候才会执行，当执行完render function之后，就会调用mounted这个钩子，在mounted挂载完毕之后，这个实例就算是走完流程了。<br><code>在这个阶段可以拿到vm.el</code></p>
+</li>
+<li><p>mounted: vm.el已经完成dom的挂载与渲染</p>
+</li>
+</ol>
+<p>后续的钩子函数执行的过程都是需要外部的触发才会执行。比如说有数据的变化，会调用beforeUpdate，然后经过Virtual DOM，最后updated更新完毕。当组件被销毁的时候，它会调用beforeDestory，以及destoryed。</p>
+<ol start="5">
+<li><p>beforeDestroy: 被销毁前调用，此时实例属性与方法可访问</p>
+</li>
+<li><p>destroyed: 完全销毁一个实例，可清理它与实例的连接，解除它的全部指令以及事件监听器</p>
+</li>
+</ol>
+<h3 id="数据请求在created和mouted的区别"><a href="#数据请求在created和mouted的区别" class="headerlink" title="数据请求在created和mouted的区别"></a>数据请求在created和mouted的区别</h3><p>created是在组件实例一旦创建完成的时候立刻调用，这时候页面dom节点并未生成，虽然都能拿到实例对象的属性和方法，但是放在mounted请求有可能导致页面闪动（页面dom结构已经生成），但如果在页面加载前完成则不会出现此情况，建议：放在create生命周期当中</p>
+<p><strong>为什么不能放在beforeupdate updated里面？</strong><br>要是setData了又会重新走这个钩子</p>
+<h3 id="setData一定会触发更新钩子吗"><a href="#setData一定会触发更新钩子吗" class="headerlink" title="setData一定会触发更新钩子吗"></a>setData一定会触发更新钩子吗</h3><p>不一定，只有视图变化的时候才会触发</p>
+<h3 id="视图层数据变化一定会触发更新吗？"><a href="#视图层数据变化一定会触发更新吗？" class="headerlink" title="视图层数据变化一定会触发更新吗？"></a>视图层数据变化一定会触发更新吗？</h3><p>不一定</p>
+<h2 id="为什么v-if-v-for不能一起用？"><a href="#为什么v-if-v-for不能一起用？" class="headerlink" title="为什么v-if v-for不能一起用？"></a>为什么v-if v-for不能一起用？</h2><p>v-if指令跟v-for一起用的时候：v-for的优先级更高（vue3中是v-if的优先级更高），不能一起用是因为每次都会先渲染再进行条件判断，如何解决？</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">'xxx'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">v-for=...</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -341,10 +404,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-18T14:33:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-23T15:51:49+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>updated at Apr 18, 2023</p>
+    <p>updated at Apr 23, 2023</p>
   </a>
 </div>
 
@@ -366,7 +429,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://ashleyblog.xyz/2019/05/17/你不知道的vue/&title=你不知道的vue | Ashley's blog&summary="
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://earnest1997.github.io/ashley271017.github.io/2019/05/17/你不知道的vue/&title=你不知道的vue（上） | Ashley's blog&summary="
           
           >
           
@@ -378,7 +441,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ashleyblog.xyz/2019/05/17/你不知道的vue/&title=你不知道的vue | Ashley's blog&summary="
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://earnest1997.github.io/ashley271017.github.io/2019/05/17/你不知道的vue/&title=你不知道的vue（上） | Ashley's blog&summary="
           
           >
           
@@ -390,7 +453,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://ashleyblog.xyz/2019/05/17/你不知道的vue/&title=你不知道的vue | Ashley's blog&summary="
+          href="http://service.weibo.com/share/share.php?url=https://earnest1997.github.io/ashley271017.github.io/2019/05/17/你不知道的vue/&title=你不知道的vue（上） | Ashley's blog&summary="
           
           >
           
@@ -473,7 +536,7 @@
 
   <script>
     window.subData = {
-      title: '你不知道的vue',
+      title: '你不知道的vue（上）',
       tools: true
     }
   </script>
@@ -530,7 +593,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nextTick有啥用？原理是啥？"><span class="toc-text">nextTick有啥用？原理是啥？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有啥用？"><span class="toc-text">有啥用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理是啥？"><span class="toc-text">原理是啥？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么可以获取到最新的dom？"><span class="toc-text">为什么可以获取到最新的dom？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么优先使用微任务？"><span class="toc-text">为什么优先使用微任务？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keep-alive的实现原理"><span class="toc-text">keep-alive的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是？"><span class="toc-text">什么是？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生命钩子"><span class="toc-text">生命钩子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nextTick有啥用？原理是啥？"><span class="toc-text">nextTick有啥用？原理是啥？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有啥用？"><span class="toc-text">有啥用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理是啥？"><span class="toc-text">原理是啥？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么可以获取到最新的dom？"><span class="toc-text">为什么可以获取到最新的dom？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么优先使用微任务？"><span class="toc-text">为什么优先使用微任务？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keep-alive的实现原理"><span class="toc-text">keep-alive的实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是？"><span class="toc-text">什么是？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生命钩子"><span class="toc-text">生命钩子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#keep-alive如何做动态缓存？"><span class="toc-text">keep-alive如何做动态缓存？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue复用方式"><span class="toc-text">vue复用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mixin"><span class="toc-text">mixin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mixin原理"><span class="toc-text">mixin原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#this-set"><span class="toc-text">this.$set</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vue-set"><span class="toc-text">vue.set</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#set方法的实现"><span class="toc-text">set方法的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue生命周期"><span class="toc-text">vue生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#render-h-中的h"><span class="toc-text">render(h)中的h?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据请求在created和mouted的区别"><span class="toc-text">数据请求在created和mouted的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setData一定会触发更新钩子吗"><span class="toc-text">setData一定会触发更新钩子吗</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图层数据变化一定会触发更新吗？"><span class="toc-text">视图层数据变化一定会触发更新吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么v-if-v-for不能一起用？"><span class="toc-text">为什么v-if v-for不能一起用？</span></a></li></ol>
     </div>
   </section>
 
@@ -648,7 +711,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 18px; color: #7e7e7e">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 20px; color: #707070">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 22px; color: #636363">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 16px; color: #8b8b8b">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 18px; color: #7e7e7e">面经</a>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 21.5px; color: #666">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 21.5px; color: #666">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/包管理/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/基础技能/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/性能优化/" style="font-size: 16.5px; color: #888">性能优化</a> <a href="/ashley271017.github.io/tags/架构/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/模块联邦/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/浏览器安全/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/生活/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/算法/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/网络/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/设计模式/" style="font-size: 14px; color: #999">设计模式</a> <a href="/ashley271017.github.io/tags/配置/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/面经/" style="font-size: 19px; color: #777">面经</a>
     </div>
   </section>
 
@@ -941,7 +1004,7 @@
 
   <script>setLoadingBarProgress(100);</script>
 <script>if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js?t=1681870984899')
+  navigator.serviceWorker.register('/sw.js?t=1682305223893')
     .then(function () {console.log('ServiceWorker Register Successfully.')})
     .catch(function (e) {console.error(e)});
 }

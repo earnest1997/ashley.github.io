@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>gitlab ci  从入门到实践 | Ashley&#39;s blog</title>
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+  <link rel="manifest" href="/manifest.json">
+  
+    
+<link rel="stylesheet" href="/ashley271017.github.io/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>Ashley's blog</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/"
+            
+            
+            id="ashley271017.github.io">
+            <i class='fas fa-rss fa-fw'></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/collect/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.iocollect">
+            <i class='fas fa-link fa-fw'></i>&nbsp;收藏
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/ashley271017.github.io/about/"
+            
+              rel="nofollow"
+            
+            
+            id="ashley271017.github.ioabout">
+            <i class='fas fa-info-circle fa-fw'></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/ashley271017.github.io/' >
+        
+          Ashley's blog
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/"
+                  
+                  
+                  id="ashley271017.github.io">
+									<i class='fas fa-grin fa-fw'></i>&nbsp;示例
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/category/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogcategory">
+									<i class='fas fa-folder-open fa-fw'></i>&nbsp;分类
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/ashley271017.github.io/blog/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="ashley271017.github.ioblogtags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="Search" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/"
+                
+                
+                id="ashley271017.github.io">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/ashley271017.github.io/friends/"
+                
+                  rel="nofollow"
+                
+                
+                id="ashley271017.github.iofriends">
+								<i class='fas fa-link fa-fw'></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/ashley271017.github.io/2023/03/02/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/">
+        gitlab ci  从入门到实践
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="https://earnest1997.github.io/ashley271017.github.io" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>Ashley</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2023-03-02</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <a title='gitlab ci  从入门到实践' href='/ashley271017.github.io/2023/03/02/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/'><img class='thumbnail' src='https://bougiel.github.io/images/2019/05/02/EtjGbq.png'></a>
+      
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="一、Gitlab-CI-是什么？"><a href="#一、Gitlab-CI-是什么？" class="headerlink" title="一、Gitlab CI 是什么？"></a>一、Gitlab CI 是什么？</h2><p>现代持续的软件开发导致了开发者需要持续的build, test 和 deploy 重复的代码更改，这些重复的过程非常的繁琐，但是对保证代码持续更新迭代来说又非常的重要。此时便需要一种非人为手动的方法来帮助我们自动完成这些重复的工作。<br>这个自动完成工作的理念被称为CI/CD. 在这里Gitlab CI/CD就是Gitlab官方发布的一种自动流水线帮助开发者完成重复性工作的一个服务。</p>
+<h2 id="二、如何使用？"><a href="#二、如何使用？" class="headerlink" title="二、如何使用？"></a>二、如何使用？</h2><h3 id="Gitlab-CI的使用主要需要2大步骤"><a href="#Gitlab-CI的使用主要需要2大步骤" class="headerlink" title="Gitlab CI的使用主要需要2大步骤"></a>Gitlab CI的使用主要需要2大步骤</h3><h4 id="步骤一：配置runner"><a href="#步骤一：配置runner" class="headerlink" title="步骤一：配置runner"></a>步骤一：配置runner</h4><p>我们可以简单的把<strong>Gitlab runner给理解成.gitlab-ci.yml 文件内容的*执行者，.gitlab-ci.yml 告诉了Gitlab runner去做什么。</strong><br>Gitlab runner不是一个配置项，它是需要专门部署的，比如用docker部署一个runner镜像到可以连接内网的容器。也可以使用公司内配好的shared runners.</p>
+<ul>
+<li><p>使用shared runner：<br>无需多余操作，请确保shared runner选项被enable了即可直接使用公共runner。（如下）<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjibSgmib5mxkiceJzOQGQibWcOWusRnWJxJxpHuiawLMrxmrSrSugKzNF3ZQg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+</li>
+<li><p>自己配置runner：<br>部署Gitlab runner官方文档：Run GitLab Runner in a container | GitLab[1]</p>
+</li>
+</ul>
+<p>关联runner到gitlab官方文档：Registering runners | GitLab[2]</p>
+<p><strong>A. 安装docker:</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install --cask docker</span><br></pre></td></tr></table></figure>
+
+<p><strong>B. 启动Gitlab runner container:</strong><br>起一个docker container来执行Gitlab Runner镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name gitlab-runner --restart always \</span><br><span class="line">   -v /Users/Shared/gitlab-runner/config:/etc/gitlab-runner \</span><br><span class="line">   -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">   gitlab/gitlab-runner:latest</span><br></pre></td></tr></table></figure>
+
+<p><strong>C. 注册runner到Gitlab:</strong><br>只用docker起一个gitlab runner不能将我们当前使用的gitlab repository和上一步创建的runner进行关联。在此需要将其进行相互关联，将runner注册到我们的gitlab repository<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjibOluT9IR1O3uiciccrB2MRQ9hw9K8iaU31O1YVV3tibe0wDBEI7ojXqaBkw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<p>使用上图得到的URL和token去替换下面指令的–url和–registration-token</p>
+<p>–tag-list 为当前runner的标签，在配置流水线job的时候使用，在此可随意配置不同的标签名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> -v /Users/Shared/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register \</span><br><span class="line"> --non-interactive \</span><br><span class="line"> --executor <span class="string">&quot;docker&quot;</span> \</span><br><span class="line"> --docker-image alpine:latest \</span><br><span class="line"> --url <span class="string">&quot;https://gitlab.com/&quot;</span> \</span><br><span class="line"> --registration-token <span class="string">&quot;wc-Reg7qUpGRB4Lw3q9Y&quot;</span> \</span><br><span class="line"> --description <span class="string">&quot;gitlab—cicd-runner&quot;</span> \</span><br><span class="line"> --tag-list <span class="string">&quot;yehanli,liyehan&quot;</span> \</span><br><span class="line"> --run-untagged=<span class="string">&quot;true&quot;</span> \</span><br><span class="line"> --locked=<span class="string">&quot;false&quot;</span> \</span><br><span class="line"> --access-level=<span class="string">&quot;not_protected&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>至此，Gitlab runner和配置均已成功，打开setting/CICD页面可以看到如下提示：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjibLAkviaQUfbFOUxiaF4rR8kyAuTZf9LhKzJX2dscgfAGFKuEc6Nf9bmEQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<h4 id="步骤二：创建-gitlab-ci-yml文件"><a href="#步骤二：创建-gitlab-ci-yml文件" class="headerlink" title="步骤二：创建.gitlab-ci.yml文件"></a>步骤二：创建.gitlab-ci.yml文件</h4><p>在mono repo的根目录创建一个文件, 命名为.gitlab-ci.yml, 并将其push到master分支。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .gitlab-ci.yml</span><br><span class="line">git commit -m <span class="string">&quot;Add .gitlab-ci.yml&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>在较低gitlab版本(比如11.4)，如果在master主分支下没有.gitlab-ci.yml的话，在Gitlab左侧的导航栏不会有Gitlab Runner这个tab。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjibur1E6Hsb7f3WkfodBiajO9cATicZlhBhczEU5wXVb5v10I5W5khK1klg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<p>在项目的setting/CI/CD/General pipelines中，我们可以自定义设置CI设置文件的路径，默认如下<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjib8TEX9O87T4SWBhia6LV6KGiawSGdWSnlm5zbZy5zKLEiaYdmgN7PQS8ibA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<h4 id="三、如何编写-gitlab-ci-yml文件？"><a href="#三、如何编写-gitlab-ci-yml文件？" class="headerlink" title="三、如何编写.gitlab-ci.yml文件？"></a>三、如何编写.gitlab-ci.yml文件？</h4><p>首先，让我们先来熟悉下yaml的常见写法，以及对比下它与json有什么不同。</p>
+<p>Yaml Syntax写法详情具体请见 =&gt; YAML Syntax ‒ Ansible Documentation[3]</p>
+<p><strong>YAML语法：</strong><br>数组写法：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;array&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;red&quot;</span><span class="punctuation">,</span> <span class="string">&quot;blue&quot;</span><span class="punctuation">,</span> <span class="string">&quot;yellow&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>转化为yaml为</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">array:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">red</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">blue</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">yellow</span></span><br></pre></td></tr></table></figure>
+<p>对象写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;student1&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;小明&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;array&quot;</span>: [<span class="string">&quot;red&quot;</span>, <span class="string">&quot;blue&quot;</span>, <span class="string">&quot;yellow&quot;</span>],</span><br><span class="line">  <span class="string">&quot;student2&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span>: <span class="string">&quot;小明&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>转化为yaml为</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我是注释</span></span><br><span class="line"><span class="attr">student1:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">小明</span></span><br><span class="line"><span class="attr">array:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">red</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">blue</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">yellow</span></span><br><span class="line"><span class="attr">student2:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">小明</span></span><br></pre></td></tr></table></figure>
+<p>yaml中不像json那样无法注释，我们可以用#进行注释</p>
+<h4 id="流水线环节梳理"><a href="#流水线环节梳理" class="headerlink" title="流水线环节梳理:"></a>流水线环节梳理:</h4><p>流水线的流程，根据配置的.gitlab-ci.yml文件可以分为如下几个环节：</p>
+<p>在单个的流水线任务执行之前进行配置<br>定义单个流水线任务(job)，并对此任务进行针对配置</p>
+<p>单个流水线任务的形式可以参考如下示例，具体字段释义可以暂时忽略，会在之后详解：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个my_job的任务名是可以自定义起的</span></span><br><span class="line"><span class="attr">my_job:</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">master</span>    </span><br><span class="line">  <span class="attr">tags:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">yehanli</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">echo</span> <span class="string">&#x27;job ========= 完成&#x27;</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">build</span></span><br><span class="line">  <span class="attr">retry:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Gitlab-CI-关键字："><a href="#Gitlab-CI-关键字：" class="headerlink" title="Gitlab-CI 关键字："></a>Gitlab-CI 关键字：</h4><p>Gitlab CI的关键字有很多，但实际常用的只有较小一部分。在此部分会对常用关键字进行详解。</p>
+<ul>
+<li><p>script<br>需要被运行的脚本。以数组形式配置。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pipeline_job:</span></span><br><span class="line">  <span class="string">......</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">&lt;文件夹目录路径&gt;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">build</span></span><br><span class="line">  <span class="string">......</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>before_script<br>在所有的流水线任务执行之前需要执行的脚本，或者单个流水线任务中的script执行之前执行某些scrip</p>
+</li>
+<li><p>variables变量<br>在Gitlab-CI中，变量大致可分为三类：</p>
+<ul>
+<li><p>Gitlab给我们预先定义的变量，比如CI_COMMIT_BRANCH.</p>
+</li>
+<li><p>Setting =&gt; Gitlab CI/CD =&gt; variables中定义的变量<br><img src="https://mmbiz.qpic.cn/mmbiz_png/ndgH50E7pIoRXDjYFOUuibFpiaKhVqZicjibX3IMZFddiboM0vk3libTHSBpLD5iaOqia6ibiavqrqs19NDQIPp967AvYKEg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+</li>
+<li><p>在.gitlab-ci.yml中定义的变量(如下示例)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="attr">TEST_VAR:</span> <span class="string">&quot;All jobs can use this variable&#x27;s value&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">job1:</span></span><br><span class="line">  <span class="attr">variables:</span></span><br><span class="line">    <span class="attr">TEST_VAR_JOB:</span> <span class="string">&quot;Only job1 can use this variable&#x27;s value&quot;</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">echo</span> <span class="string">&quot;$TEST_VAR&quot;</span></span><br><span class="line">  <span class="string">......</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>image<br>CI流水线运行环境的docker镜像(任何相关的代码运行环境镜像皆可),比较常用的有：node, python, java, etc…</p>
+</li>
+<li><p>stages<br>Gitlab CI允许我们进行自定义的流水线阶段配置，我们可以将自己的流水线自我划分为若干stages，然后在不同的stage来做不同的事。（稍后会有示例）(对应gitlab上的那一排圆圈圈)<br>stages会依次执行，如果前一个stage的任务没有运行完，后面的stage不会被触发。</p>
+</li>
+</ul>
+<p>一旦有一个stage中的任务fail掉了，下一个stage的任务便不会执行。如果当前stage定义了多个任务，那么其中一个任务失败，另外一个任务还是会被继续执行。<br>以下为自定义的stages：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">first_stage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">second_stage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">third_stage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">fourth_stage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">fifth_stage</span></span><br></pre></td></tr></table></figure>
+
+<p>如果没有自定义stages，那么默认的stages为<code>.pre =&gt; build =&gt; test =&gt; deploy =&gt; .post</code>(自定义stages会重写除了.pre, .post之外所有的默认stages)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span> </span><br><span class="line">  <span class="bullet">-</span> <span class="string">.pre</span> <span class="comment"># 执行在所有的stages之前</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">build</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">test</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">deploy</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">.post</span> <span class="comment"># 执行在所有的stages之后</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>stage<br>stage为stages的一个子项，在我们自定义单个流水线任务时可以配置</p>
+</li>
+<li><p>cache:<br>缓存多个流水线任务之间共用的文件，目录， etc…</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="attr">key:</span> <span class="string">cache-node-modules</span></span><br><span class="line">  <span class="comment"># 在这里写出需要缓存的文件的路径，在此为node_modules</span></span><br><span class="line">  <span class="attr">paths:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">node_modules</span></span><br></pre></td></tr></table></figure></li>
+<li><p>retry:<br>一个job可以被重新执行的最大数量。必须是个正整数, 0-2, 2为最大值</p>
+<ul>
+<li>when可设置在特定失败原因的情况下执行<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">job:</span></span><br><span class="line">  <span class="attr">script:</span> <span class="string">rspec</span></span><br><span class="line">  <span class="attr">retry:</span></span><br><span class="line">    <span class="attr">max:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">when:</span> <span class="string">runner_system_failure</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>only &amp; except</p>
+<ul>
+<li>only: 设置流水线任务执行时机</li>
+<li>except: 设置流水线任务不执行时机<br>可配置选项（常用的几个）：<br>pushes：    git push时触发，适用于所有分支<br>merge_requests：    MR被创建时触发，适用于所有分支<br>web：    手动在Gitlab Runner/pipeline里面点击run pipeline时触发</li>
+</ul>
+</li>
+</ul>
+<p>配置branch名称来规定触发任务的分支(如下)</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myjob:</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">master</span></span><br><span class="line"><span class="comment"># 以上写法等同于</span></span><br><span class="line"><span class="attr">myjob:</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="attr">variables:</span></span><br><span class="line">    <span class="comment"># $CI_COMMIT_REF_NAME是一个gitlab的预设变量，代表当前commit给哪个branch上了</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">==</span> <span class="string">&quot;master&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>rules:if<br>此字段可以在单个流水线job或者workflow字段下进行配置。</li>
+</ul>
+<p>rules关键词下可以进行if语句配置，如果if满足的话可执行某些自定义配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/feature/</span></span><br></pre></td></tr></table></figure>
+<p>注意: only &amp; except和rules:if都是用来决定单个job执行时机的，在配置时只能存在一个，否则会报错</p>
+<ul>
+<li>workflow<br>需要和rules配合用来控制整个pipeline的行为，比如整个流水线执行与否。整个流水线正常运行的前提是其rules配置中的if语句至少需要触发一个.</li>
+</ul>
+<p>在各个流水线任务的外层进行配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="attr">IS_FEATURE:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line"><span class="attr">workflow:</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">if:</span> <span class="string">$CI_COMMIT_REF_NAME</span> <span class="string">=~</span> <span class="string">/feature/</span></span><br><span class="line">      <span class="attr">variables:</span></span><br><span class="line">        <span class="attr">IS_FEATURE:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">when:</span> <span class="string">always</span> <span class="comment"># Run the pipeline in other cases</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>when<br>这个关键字和stage需要配合使用。如果一个stage fail掉了，那么我们应该期待下个stage怎么办呢？</li>
+</ul>
+<p>(When to run a job?)</p>
+<p>on_success(default): 所有之前stage的任务都执行成功了才执行当前stage的任务，或者之前fail的任务有配置了allow_failure: true<br>on_failure ：只有在之前的流水线任务有至少一次的fail之下才执行当前任务。<br>always：无论之前的stage的流水线的任务状态如何，当前的任务都会触发。<br>never：不运行当前任务<br>manual：流水线手动触发,点击play，如下图</p>
+<ul>
+<li>tags<br>这个是设定Gitlab 在执行脚本时使用哪个runner</li>
+</ul>
+<p><strong>注意事项:</strong><br>配置时有些关键字比如workflow，rules什么的会显示报错 XXX config conatins unknown keys.</p>
+<p>这个是因为公司的Gitlab版本较旧，Gitlab 12.5之后才支持这些配置。</p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>项目背景：子项目，依赖于360kuai仓库，每次编译需要拉取该仓库代码然后进行编译，之后将打包后的文件cp到360kuai的public目录下对应的该仓库的打包文件目录</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">stages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">compile</span></span><br><span class="line"></span><br><span class="line"><span class="attr">image:</span> <span class="string">xxx/node-git:0.0.1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">variables:</span></span><br><span class="line">  <span class="comment"># GIT_SUBMODULE_STRATEGY: normal</span></span><br><span class="line">  <span class="attr">NPM_CONFIG_CACHE:</span> <span class="string">&#x27;$CI_PROJECT_DIR/.npm&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="attr">key:</span></span><br><span class="line">    <span class="attr">files:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">package-lock.json</span></span><br><span class="line">  <span class="attr">paths:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">$&#123;NPM_CONFIG_CACHE&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">compile:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">compile</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="attr">refs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">merge_requests</span></span><br><span class="line">    <span class="attr">variables:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">$TARGET_BRANCH_NAME</span> <span class="string">==</span> <span class="string">&quot;master&quot;</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ls</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">rm</span> <span class="string">-rf</span> <span class="string">360kuai</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">submodule</span> <span class="string">update</span> <span class="string">--init</span> <span class="string">--recursive</span> <span class="string">--remote</span> <span class="string">--depth=1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">ci</span> <span class="string">--prefer-offline</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">compile</span></span><br><span class="line">  <span class="attr">after_script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ls</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">rm</span> <span class="string">-rf</span> <span class="string">360kuai</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">clone</span> <span class="string">-b</span> <span class="string">xxx/360kuai.git</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.email</span> <span class="string">&quot;xxx&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">config</span> <span class="string">--global</span> <span class="string">user.name</span> <span class="string">&quot;xxx&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cd</span> <span class="string">360kuai</span></span><br><span class="line">    <span class="comment"># - git checkout master</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cp</span> <span class="string">-r</span> <span class="string">../public/static/css/supmodule</span> <span class="string">public/static/css</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cp</span> <span class="string">-r</span> <span class="string">../public/static/js/supmodule</span> <span class="string">public/static/js</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cp</span> <span class="string">-r</span> <span class="string">../public/static/img/supmodule</span> <span class="string">public/static/img</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">status</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">add</span> <span class="string">.</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">commit</span> <span class="string">--author=&quot;xxx</span> <span class="string">&lt;xxx@360&gt;&quot;</span> <span class="string">-m</span> <span class="string">&quot;更新&quot;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">git</span> <span class="string">log</span> <span class="number">-1</span></span><br><span class="line">    <span class="comment"># - git push</span></span><br></pre></td></tr></table></figure>
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-04-18T14:44:35+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>updated at Apr 18, 2023</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/ashley271017.github.io/tags/cicd/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>cicd</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://earnest1997.github.io/ashley271017.github.io/2023/03/02/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/&title=gitlab ci  从入门到实践 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://earnest1997.github.io/ashley271017.github.io/2023/03/02/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/&title=gitlab ci  从入门到实践 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://earnest1997.github.io/ashley271017.github.io/2023/03/02/%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/&title=gitlab ci  从入门到实践 | Ashley's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous</h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/03/15/debug%E8%AE%B0%E5%BD%95/" rel="prev" title="a2hs debug记录">
+                                  
+                                      a2hs debug记录
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/a2hs/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a2hs</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/ashley271017.github.io/2023/02/15/webpack%E6%89%93%E5%8C%85%E4%BA%A7%E7%89%A9%E4%BC%98%E5%8C%96/" rel="prev" title="webpack打包产物优化">
+                                    
+                                        webpack打包产物优化
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/ashley271017.github.io/tags/webpack/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>webpack</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;Comments</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'gitlab ci  从入门到实践',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+        
+          
+          
+            <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/ashley271017.github.io/images/avatar.jpeg'/>
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        <!-- 
+          
+            <a href="https://github.com/earnest1997"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+         -->
+        失落，是因为你总在跟别人比较
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;TOC</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Gitlab-CI-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">一、Gitlab CI 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="toc-text">二、如何使用？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gitlab-CI%E7%9A%84%E4%BD%BF%E7%94%A8%E4%B8%BB%E8%A6%81%E9%9C%80%E8%A6%812%E5%A4%A7%E6%AD%A5%E9%AA%A4"><span class="toc-text">Gitlab CI的使用主要需要2大步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%B8%80%EF%BC%9A%E9%85%8D%E7%BD%AErunner"><span class="toc-text">步骤一：配置runner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4%E4%BA%8C%EF%BC%9A%E5%88%9B%E5%BB%BA-gitlab-ci-yml%E6%96%87%E4%BB%B6"><span class="toc-text">步骤二：创建.gitlab-ci.yml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99-gitlab-ci-yml%E6%96%87%E4%BB%B6%EF%BC%9F"><span class="toc-text">三、如何编写.gitlab-ci.yml文件？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%8E%AF%E8%8A%82%E6%A2%B3%E7%90%86"><span class="toc-text">流水线环节梳理:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Gitlab-CI-%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%9A"><span class="toc-text">Gitlab-CI 关键字：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5"><span class="toc-text">实践</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/" href="/ashley271017.github.io/"
+          
+          
+          id="ashley271017.github.io">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/ashley271017.github.io/friends/" href="/ashley271017.github.io/friends/"
+          
+            rel="nofollow"
+          
+          
+          id="ashley271017.github.iofriends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget category'>
+    
+<header class='pure'>
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Categories</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/category/"
+    title="blog/category/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/sass/" href="/ashley271017.github.io/categories/sass/"><div class='name'>sass</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/ts/" href="/ashley271017.github.io/categories/ts/"><div class='name'>ts</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" href="/ashley271017.github.io/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"><div class='name'>性能优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/%E6%88%90%E9%95%BF/" href="/ashley271017.github.io/categories/%E6%88%90%E9%95%BF/"><div class='name'>成长</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/%E9%85%8D%E7%BD%AE/" href="/ashley271017.github.io/categories/%E9%85%8D%E7%BD%AE/"><div class='name'>配置</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/" href="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/"><div class='name'>面经</div><div class='badge'>(3)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/css/" href="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/css/"><div class='name'>css</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box child" title="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/%E6%B5%8F%E8%A7%88%E5%99%A8/" href="/ashley271017.github.io/categories/%E9%9D%A2%E7%BB%8F/%E6%B5%8F%E8%A7%88%E5%99%A8/"><div class='name'>浏览器</div><div class='badge'>(1)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;Hot Tags</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/ashley271017.github.io/blog/tags/"
+    title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/ashley271017.github.io/tags/a2hs/" style="font-size: 14px; color: #999">a2hs</a> <a href="/ashley271017.github.io/tags/babel/" style="font-size: 14px; color: #999">babel</a> <a href="/ashley271017.github.io/tags/chromeExtension/" style="font-size: 14px; color: #999">chromeExtension</a> <a href="/ashley271017.github.io/tags/cicd/" style="font-size: 14px; color: #999">cicd</a> <a href="/ashley271017.github.io/tags/css/" style="font-size: 19px; color: #777">css</a> <a href="/ashley271017.github.io/tags/debug/" style="font-size: 14px; color: #999">debug</a> <a href="/ashley271017.github.io/tags/react/" style="font-size: 21.5px; color: #666">react</a> <a href="/ashley271017.github.io/tags/sass-css/" style="font-size: 14px; color: #999">sass css</a> <a href="/ashley271017.github.io/tags/ts/" style="font-size: 14px; color: #999">ts</a> <a href="/ashley271017.github.io/tags/vite/" style="font-size: 14px; color: #999">vite</a> <a href="/ashley271017.github.io/tags/vue/" style="font-size: 21.5px; color: #666">vue</a> <a href="/ashley271017.github.io/tags/vue3/" style="font-size: 14px; color: #999">vue3</a> <a href="/ashley271017.github.io/tags/webpack/" style="font-size: 24px; color: #555">webpack</a> <a href="/ashley271017.github.io/tags/%E5%8C%85%E7%AE%A1%E7%90%86/" style="font-size: 14px; color: #999">包管理</a> <a href="/ashley271017.github.io/tags/%E5%9F%BA%E7%A1%80%E6%8A%80%E8%83%BD/" style="font-size: 14px; color: #999">基础技能</a> <a href="/ashley271017.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" style="font-size: 16.5px; color: #888">性能优化</a> <a href="/ashley271017.github.io/tags/%E6%9E%B6%E6%9E%84/" style="font-size: 14px; color: #999">架构</a> <a href="/ashley271017.github.io/tags/%E6%A8%A1%E5%9D%97%E8%81%94%E9%82%A6/" style="font-size: 14px; color: #999">模块联邦</a> <a href="/ashley271017.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%89%E5%85%A8/" style="font-size: 14px; color: #999">浏览器安全</a> <a href="/ashley271017.github.io/tags/%E7%94%9F%E6%B4%BB/" style="font-size: 14px; color: #999">生活</a> <a href="/ashley271017.github.io/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px; color: #999">算法</a> <a href="/ashley271017.github.io/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 14px; color: #999">网络</a> <a href="/ashley271017.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 14px; color: #999">设计模式</a> <a href="/ashley271017.github.io/tags/%E9%85%8D%E7%BD%AE/" style="font-size: 14px; color: #999">配置</a> <a href="/ashley271017.github.io/tags/%E9%9D%A2%E7%BB%8F/" style="font-size: 19px; color: #777">面经</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="https://github.com/earnest1997"
+            class="social fab fa-github flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Ashley © 2019-2023 鄂ICP备17030443号</p>
+</div>
+  <div>
+    联系方式：ashley19971212@gmail.com
+    <!-- 
+      , 
+      总浏览量
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+     -->
+    . 
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/ashley271017.github.io/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/ashley271017.github.io/images/bg.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0.5/js/volantis.min.js"></script>
+
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "vu5VJ9hGtTUPkCsBP1ItVzg9-gzGzoHsz",
+    appKey: "HfSu2jw0KjCyYYMydHTCArO2",
+    placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.8/js/search.js"></script>
+
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "Copied";
+  let COPY_FAILURE = "Copy failed";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>Copy</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
